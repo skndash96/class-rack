@@ -1,5 +1,5 @@
 {
-  "name": "frontend",
+  "name": "class-rack-frontend",
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
@@ -12,12 +12,14 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^14.1.0",
+    "@nozbe/watermelondb": "^0.28.0",
     "@react-navigation/bottom-tabs": "^7.3.10",
     "@react-navigation/elements": "^2.3.8",
     "@react-navigation/native": "^7.1.6",
     "expo": "~53.0.9",
     "expo-blur": "~14.1.4",
     "expo-constants": "~17.1.6",
+    "expo-dev-client": "~5.1.8",
     "expo-font": "~13.3.1",
     "expo-haptics": "~14.1.4",
     "expo-image": "~2.1.7",
@@ -35,15 +37,18 @@
     "react-native-paper": "^5.14.5",
     "react-native-reanimated": "~3.17.4",
     "react-native-safe-area-context": "5.4.0",
-    "react-native-screens": "~4.10.0",
+    "react-native-screens": "~4.11.1",
+    "react-native-svg": "^15.12.0",
     "react-native-web": "~0.20.0",
     "react-native-webview": "13.13.5"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
+    "@babel/plugin-proposal-decorators": "^7.27.1",
     "@types/react": "~19.0.10",
     "eslint": "^9.25.0",
     "eslint-config-expo": "~9.2.0",
+    "metro-react-native-babel-preset": "^0.77.0",
     "typescript": "~5.8.3"
   },
   "private": true

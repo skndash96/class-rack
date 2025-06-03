@@ -1,14 +1,8 @@
-// components/BottomBar.tsx
+import { routes } from '@/constants/routes';
+import AntDesign from '@expo/vector-icons/AntDesign';
 import { usePathname, useRouter } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
 import { Button, useTheme } from 'react-native-paper';
-
-const tabs = [
-  { label: 'Home', path: '/' },
-  { label: 'Account', path: '/account' },
-  { label: 'Files', path: '/files' },
-  { label: 'Tasks', path: '/tasks' },
-];
 
 export default function BottomBar() {
   const router = useRouter();
@@ -22,17 +16,22 @@ export default function BottomBar() {
         { backgroundColor: theme.colors.surface, borderTopColor: theme.colors.outlineVariant },
       ]}
     >
-      {tabs.map(({ label, path }) => {
+      {[
+        routes['/'],
+        routes['/files'],
+        routes['/exams'],
+        routes['/account'],
+      ].map(({ icon, path }) => {
         const isActive = pathname === path;
         return (
           <Button
             key={path}
+            disabled={isActive}
             mode={isActive ? 'contained-tonal' : 'text'}
             onPress={() => router.push(path as any)}
-            textColor={isActive ? theme.colors.primary : theme.colors.onSurfaceVariant}
             style={styles.button}
           >
-            {label}
+            <AntDesign name={icon as any} size={24} color={isActive ? theme.colors.primary : theme.colors.onSurfaceVariant} />
           </Button>
         );
       })}

@@ -8,6 +8,7 @@ export default function RootLayout() {
       <LayoutWrapper>
         <Stack screenOptions={{
           animation: "ios_from_right",
+          animationDuration: 100,
           headerShown: false,
           contentStyle: { flex: 1 },
         }} />
