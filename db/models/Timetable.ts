@@ -1,9 +1,29 @@
-import { Relation } from "@nozbe/watermelondb";
+import { Relation, tableSchema } from "@nozbe/watermelondb";
 import Model from "@nozbe/watermelondb/Model";
 import { field, relation } from "@nozbe/watermelondb/decorators";
-import Subject from "./Subject";
+import { Subject } from "./Subject";
 
-export default class Timetable extends Model {
+export const timetableTable = tableSchema({
+  name: 'timetable',
+  columns: [
+    {
+      name: 'subject_name',
+      type: 'string'
+    },
+    {
+      name: 'day_of_week', // 0 = sunday
+      type: 'number',
+      isIndexed: true
+    },
+    {
+      name: 'slot_number',
+      type: 'number',
+      isIndexed: true
+    }
+  ]
+})
+
+export class Timetable extends Model {
   static table = "timetable";
 
   static associations = {};
