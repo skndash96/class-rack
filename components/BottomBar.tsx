@@ -1,4 +1,3 @@
-import { routes } from '@/constants/routes';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { usePathname, useRouter } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
@@ -16,12 +15,7 @@ export default function BottomBar() {
         { backgroundColor: theme.colors.surface, borderTopColor: theme.colors.outlineVariant },
       ]}
     >
-      {[
-        routes['/'],
-        routes['/files'],
-        routes['/exams'],
-        routes['/account'],
-      ].map(({ icon, path }) => {
+      {tabs.map(({ icon, path }) => {
         const isActive = pathname === path;
         return (
           <Button
@@ -50,3 +44,26 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
 });
+
+const tabs = [
+  {
+    title: 'Home',
+    icon: 'home',
+    path: "/"
+  },
+  {
+    title: 'Files',
+    icon: 'folderopen',
+    path: "/files"
+  },
+  {
+    title: 'Exams',
+    icon: 'edit',
+    path: "/exams"
+  },
+  {
+    title: 'Account',
+    icon: 'user',
+    path: "/account"
+  }
+]
