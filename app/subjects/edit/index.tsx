@@ -1,10 +1,11 @@
 import { useTopbar } from '@/contexts/Topbar';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import { Href, useFocusEffect, useRouter } from 'expo-router';
+import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback } from 'react';
 import { ScrollView } from 'react-native';
 import { IconButton, useTheme } from 'react-native-paper';
-import SubjectsList from './components/SubjectsList';
+import AddSubjectButton from '../components/AddSubjectButton';
+import SubjectsList from '../components/SubjectsList';
 
 export default function Subjects() {
   const { setTopBarOptions } = useTopbar()
@@ -16,8 +17,9 @@ export default function Subjects() {
       title: "Subjects",
       rightActions: [
         <IconButton
-          onPress={() => router.push("/subjects/edit" as Href)}
-          icon={({size, color}) => <AntDesign name={"edit"} color={color} size={size} />} />,
+          onPress={() => router.back()}
+          mode={"contained"}
+          icon={({ size, color }) => <AntDesign name={"check"} color={color} size={size} />} />,
       ]
     })
   }, []))
@@ -28,7 +30,9 @@ export default function Subjects() {
       flex: 1,
       padding: 16
     }}>
-      <SubjectsList />
+      <AddSubjectButton />
+
+      <SubjectsList editMode={true} />
     </ScrollView>
   )
 }

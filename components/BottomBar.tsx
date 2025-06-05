@@ -16,13 +16,13 @@ export default function BottomBar() {
       ]}
     >
       {tabs.map(({ icon, path }) => {
-        const isActive = pathname === path;
+        const isActive = path === "/" ? pathname === path : pathname.startsWith(path);
         return (
           <Button
             key={path}
             disabled={isActive}
             mode={isActive ? 'contained-tonal' : 'text'}
-            onPress={() => router.push(path as any)}
+            onPress={() => router.replace(path as any)}
             style={styles.button}
           >
             <AntDesign name={icon as any} size={24} color={isActive ? theme.colors.primary : theme.colors.onSurfaceVariant} />
@@ -54,7 +54,7 @@ const tabs = [
   {
     title: 'Files',
     icon: 'folderopen',
-    path: "/files"
+    path: "/subjects"
   },
   {
     title: 'Exams',

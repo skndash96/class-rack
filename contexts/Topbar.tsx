@@ -1,7 +1,8 @@
-import { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 
 interface TopbarContextState {
   title?: string;
+  rightActions?: React.ReactNode[];
 }
 
 interface TopbarContextProps {
