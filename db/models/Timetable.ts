@@ -7,7 +7,7 @@ export const timetableTable = tableSchema({
   name: 'timetable',
   columns: [
     {
-      name: 'subject_name',
+      name: 'subject_id',
       type: 'string'
     },
     {

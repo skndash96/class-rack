@@ -2,8 +2,8 @@ import { database } from '@/db'
 import { Subject } from '@/db/models/Subject'
 import AntDesign from '@expo/vector-icons/AntDesign'
 import React, { useState } from 'react'
-import { Alert } from 'react-native'
-import { Button } from 'react-native-paper'
+import { FAB } from 'react-native-paper'
+import Toast from 'react-native-simple-toast'
 import SubjectModal from './SubjectModal'
 
 export default function AddSubject() {
@@ -27,11 +27,11 @@ export default function AddSubject() {
     })
       .then(() => {
         setVisible(false)
-        Alert.alert("Success", "Subject added successfully!")
+        Toast.show("Subject added successfully!", Toast.SHORT)
       })
       .catch((error) => {
         console.error("Failed to add subject:", error)
-        Alert.alert("Error", "Failed to add subject. Please try again.")
+        Toast.show("Failed to add subject. Please try again.", Toast.SHORT)
       })
   }
 
@@ -46,15 +46,14 @@ export default function AddSubject() {
         />
       )}
 
-      <Button
-        mode='contained-tonal'
+      <FAB
+        style={{ position: 'absolute', bottom: 24, right: 16 }}
+        label='Add Subject'
         icon={({ size, color }) => (
           <AntDesign name="plus" size={size} color={color} />
         )}
         onPress={() => setVisible(true)}
-      >
-        Add Subject
-      </Button>
+      />
     </>
   )
 }

@@ -5,6 +5,7 @@ import { withObservables } from '@nozbe/watermelondb/react'
 import React from 'react'
 import { Alert } from 'react-native'
 import { Card, IconButton } from 'react-native-paper'
+import Animated, { FadeInDown, FadeOutUp, LinearTransition } from 'react-native-reanimated'
 import SubjectModal from './SubjectModal'
 
 const SubjectItem = ({
@@ -53,33 +54,39 @@ const SubjectItem = ({
   }
 
   return (
-    <Card mode="elevated" style={{ marginVertical: 8 }} elevation={2}>
-      <Card.Title title={subject.name} subtitle={`${subject.code} (${subject.credits} credits)`} />
+    <Animated.View
+      layout={LinearTransition}
+      entering={FadeInDown}
+      exiting={FadeOutUp}
+    >
+      <Card mode="elevated" style={{}} elevation={2}>
+        <Card.Title title={subject.name} titleVariant="titleLarge" subtitle={`${subject.code} (${subject.credits} credits)`} />
 
-      {editMode && (
-        <Card.Actions>
-          {editModalVisible && (
-            <SubjectModal
-              initialSubject={subject}
-              title='Edit Subject'
-              onClose={() => setEditModalVisible(false)}
-              onSubmit={handleEdit}
+        {editMode && (
+          <Card.Actions>
+            {editModalVisible && (
+              <SubjectModal
+                initialSubject={subject}
+                title='Edit Subject'
+                onClose={() => setEditModalVisible(false)}
+                onSubmit={handleEdit}
+              />
+            )}
+
+            <IconButton
+              icon={({ size, color }) => (<AntDesign name="edit" size={size} color={color} />)}
+              onPress={() => setEditModalVisible(true)}
+              size={24}
             />
-          )}
-
-          <IconButton
-            icon={({ size, color }) => (<AntDesign name="edit" size={size} color={color} />)}
-            onPress={() => setEditModalVisible(true)}
-            size={24}
-          />
-          <IconButton
-            icon={({ size, color }) => (<AntDesign name="delete" size={size} color={color} />)}
-            onPress={handleDelete}
-            size={24}
-          />
-        </Card.Actions>
-      )}
-    </Card>
+            <IconButton
+              icon={({ size, color }) => (<AntDesign name="delete" size={size} color={color} />)}
+              onPress={handleDelete}
+              size={24}
+            />
+          </Card.Actions>
+        )}
+      </Card>
+    </Animated.View>
   )
 }
 

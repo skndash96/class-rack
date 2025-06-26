@@ -2,8 +2,9 @@ import { database } from '@/db'
 import { Subject } from '@/db/models/Subject'
 import { withObservables } from '@nozbe/watermelondb/react'
 import React from 'react'
-import { View } from 'react-native'
+import { ScrollView } from 'react-native'
 import { Text } from 'react-native-paper'
+import AddSubject from './AddSubjectButton'
 import SubjectItem from './SubjectItem'
 
 const enhanceSubjectsList = withObservables([], () => ({
@@ -19,15 +20,27 @@ function SubjectsList({ subjects, editMode = false }: {
   }
 
   return (
-    <View style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-      {subjects.map((subject) => (
-        <SubjectItem
-          key={subject.id}
-          subject={subject}
-          editMode={editMode}
-        />
-      ))}
-    </View>
+    <>
+      <ScrollView contentContainerStyle={{
+        padding: 16,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 16,
+        paddingBottom: 96
+      }}>
+        {subjects.map((subject) => (
+          <SubjectItem
+            key={subject.id}
+            subject={subject}
+            editMode={editMode}
+          />
+        ))}
+      </ScrollView>
+
+      {editMode && (
+        <AddSubject />
+      )}
+    </>
   )
 }
 

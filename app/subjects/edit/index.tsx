@@ -2,9 +2,8 @@ import { useTopbar } from '@/contexts/Topbar';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback } from 'react';
-import { ScrollView } from 'react-native';
+import { View } from 'react-native';
 import { IconButton, useTheme } from 'react-native-paper';
-import AddSubjectButton from '../components/AddSubjectButton';
 import SubjectsList from '../components/SubjectsList';
 
 export default function Subjects() {
@@ -25,14 +24,11 @@ export default function Subjects() {
   }, []))
 
   return (
-    <ScrollView style={{
+    <View style={{
       backgroundColor: theme.colors.background,
-      flex: 1,
-      padding: 16
+      flex: 1
     }}>
-      <AddSubjectButton />
-
       <SubjectsList editMode={true} />
-    </ScrollView>
+    </View>
   )
 }

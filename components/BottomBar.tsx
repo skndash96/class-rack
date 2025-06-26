@@ -57,9 +57,9 @@ const tabs = [
     path: "/subjects"
   },
   {
-    title: 'Exams',
-    icon: 'edit',
-    path: "/exams"
+    title: 'Timetable',
+    icon: 'table',
+    path: "/timetable"
   },
   {
     title: 'Account',

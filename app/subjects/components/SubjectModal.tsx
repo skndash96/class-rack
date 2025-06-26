@@ -42,7 +42,7 @@ export default function SubjectModal({
   }
 
   return (
-    <Modal visible={true} onDismiss={onClose} transparent animationType="slide">
+    <Modal visible={true} onDismiss={onClose} onRequestClose={onClose} transparent animationType="slide">
       <View style={styles.backdrop}>
         <Card style={styles.modalContainer}>
           <Card.Title titleVariant='headlineSmall' title={title} style={styles.cardTitle} />

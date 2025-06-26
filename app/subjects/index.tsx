@@ -25,8 +25,7 @@ export default function Subjects() {
   return (
     <ScrollView style={{
       backgroundColor: theme.colors.background,
-      flex: 1,
-      padding: 16
+      flex: 1
     }}>
       <SubjectsList />
     </ScrollView>
