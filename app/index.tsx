@@ -1,28 +1,30 @@
 import { useTopbar } from "@/contexts/Topbar";
 import { useFocusEffect } from "expo-router";
 import { useCallback } from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
+import RecordsList from "./home/components/RecordsList";
 
 export default function Index() {
   const { setTopBarOptions } = useTopbar();
 
   useFocusEffect(useCallback(() => {
     setTopBarOptions({
-      title: "Home"
+      title: new Date().toLocaleDateString("en-US", {
+        weekday: "short",
+        month: "short",
+        day: "numeric"
+      }),
+      rightActions: undefined
     })
   }, []))
 
   return (
-    <>
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Text>Home page</Text>
-      </View>
-    </>
+    <View
+      style={{
+        flex: 1
+      }}
+    >
+      <RecordsList />
+    </View>
   );
 }

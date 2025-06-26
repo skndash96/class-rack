@@ -2,7 +2,7 @@ import { database } from '@/db'
 import { Subject } from '@/db/models/Subject'
 import { withObservables } from '@nozbe/watermelondb/react'
 import React from 'react'
-import { ScrollView } from 'react-native'
+import { FlatList } from 'react-native'
 import { Text } from 'react-native-paper'
 import AddSubject from './AddSubjectButton'
 import SubjectItem from './SubjectItem'
@@ -15,27 +15,30 @@ function SubjectsList({ subjects, editMode = false }: {
   subjects: Subject[],
   editMode?: boolean
 }) {
-  if (!subjects || subjects.length === 0) {
-    return <Text>No subjects found</Text>
-  }
-
   return (
     <>
-      <ScrollView contentContainerStyle={{
-        padding: 16,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 16,
-        paddingBottom: 96
-      }}>
-        {subjects.map((subject) => (
+      <FlatList
+        data={subjects}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
           <SubjectItem
-            key={subject.id}
-            subject={subject}
+            subject={item}
             editMode={editMode}
           />
-        ))}
-      </ScrollView>
+        )}
+        contentContainerStyle={{
+          padding: 16,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 16,
+          paddingBottom: 96
+        }}
+        ListEmptyComponent={() => (
+          <Text style={{
+            padding: 12
+          }}>No subject s found</Text>
+        )}
+      />
 
       {editMode && (
         <AddSubject />

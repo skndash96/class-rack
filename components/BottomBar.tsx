@@ -52,14 +52,14 @@ const tabs = [
     path: "/"
   },
   {
-    title: 'Files',
-    icon: 'folderopen',
-    path: "/subjects"
-  },
-  {
     title: 'Timetable',
     icon: 'table',
     path: "/timetable"
+  },
+  {
+    title: 'Files',
+    icon: 'folderopen',
+    path: "/subjects"
   },
   {
     title: 'Account',

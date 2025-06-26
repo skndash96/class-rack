@@ -4,7 +4,7 @@ import { Timetable } from '@/db/models/Timetable'
 import { Q } from '@nozbe/watermelondb'
 import { withObservables } from '@nozbe/watermelondb/react'
 import React from 'react'
-import { Alert, ScrollView, View } from 'react-native'
+import { Alert, FlatList, View } from 'react-native'
 import { FAB, Text } from 'react-native-paper'
 import Toast from 'react-native-simple-toast'
 import AddEntryModal from './AddEntryModal'
@@ -97,8 +97,6 @@ const EditDay = ({
     newEntries.splice(currentIndex, 1)
     newEntries.splice(newIndex, 0, entry)
 
-    console.log(entries.map(x => x._raw), newEntries.map(x => x._raw))
-
     database.write(async () => {
       await database.batch(
         ...newEntries.map((e, index) => {
@@ -122,32 +120,40 @@ const EditDay = ({
 
   return (
     <>
-      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ padding: 16, paddingBottom: 96 }}>
-        {entries.length === 0 && (
-          <View style={{ padding: 16, alignItems: 'center' }}>
-            <Text>No entries found for this day.</Text>
-          </View>
-        )}
-        {entries.map(entry => (
+      <FlatList
+        style={{
+          flex: 1,
+        }}
+        contentContainerStyle={{
+          padding: 16,
+          paddingBottom: 100
+        }}
+        data={entries}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
           <EnhancedEditDayRow
             loading={loading}
-            key={entry.id}
-            entry={entry}
+            entry={item}
             totalEntries={entries.length}
             onDelete={handleDeleteEntry}
             onMoveUp={(entry: Timetable) => handleMoveEntry(entry, -1)}
             onMoveDown={(entry: Timetable) => handleMoveEntry(entry, 1)}
           />
-        ))}
-
-        {addingEntry && (
-          <AddEntryModal
-            title={`Add Entry`}
-            onClose={() => setAddingEntry(false)}
-            onSubmit={handleAddEntry}
-          />
         )}
-      </ScrollView>
+        ListEmptyComponent={() => (
+          <View style={{ padding: 16, alignItems: 'center' }}>
+            <Text>No entries found for this day.</Text>
+          </View>
+        )}
+      />
+
+      {addingEntry && (
+        <AddEntryModal
+          title={`Add Entry`}
+          onClose={() => setAddingEntry(false)}
+          onSubmit={handleAddEntry}
+        />
+      )}
 
       <FAB
         icon="plus"

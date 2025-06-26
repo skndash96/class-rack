@@ -1,5 +1,6 @@
 import { appSchema } from '@nozbe/watermelondb'
 import { attendanceRecordsTable } from './models/AttendanceRecord'
+import { preferenceTable } from './models/Preference'
 import { subjectsTable } from './models/Subject'
 import { timetableTable } from './models/Timetable'
 
@@ -9,5 +10,6 @@ export default appSchema({
     subjectsTable,
     attendanceRecordsTable,
     timetableTable,
+    preferenceTable
   ]
 })

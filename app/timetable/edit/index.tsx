@@ -3,13 +3,12 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback } from "react";
 import { View } from "react-native";
-import { IconButton, useTheme } from "react-native-paper";
+import { IconButton } from "react-native-paper";
 import EditView from "../components/EditView";
 
 export default function Timetable() {
   const router = useRouter();
   const { setTopBarOptions } = useTopbar();
-  const theme = useTheme();
 
   useFocusEffect(useCallback(() => {
     setTopBarOptions({
@@ -26,7 +25,6 @@ export default function Timetable() {
 
   return (
     <View style={{
-      backgroundColor: theme.colors.background,
       flex: 1
     }}>
       <EditView />

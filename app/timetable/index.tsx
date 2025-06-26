@@ -3,13 +3,12 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import { Href, useFocusEffect, useRouter } from "expo-router";
 import { useCallback } from "react";
 import { ScrollView } from "react-native";
-import { IconButton, useTheme } from "react-native-paper";
+import { IconButton } from "react-native-paper";
 import TableView from "./components/TableView";
 
 export default function Timetable() {
   const router = useRouter();
   const { setTopBarOptions } = useTopbar();
-  const theme = useTheme();
 
   useFocusEffect(useCallback(() => {
     setTopBarOptions({
@@ -25,9 +24,7 @@ export default function Timetable() {
 
   return (
     <ScrollView style={{
-      backgroundColor: theme.colors.background,
-      flex: 1,
-      padding: 16
+      flex: 1
     }}>
       <TableView />
     </ScrollView>

@@ -3,6 +3,7 @@ import SQLiteAdapter from '@nozbe/watermelondb/adapters/sqlite'
 
 import migrations from './migrations'
 import { AttendanceRecord } from './models/AttendanceRecord'
+import { Preference } from './models/Preference'
 import { Subject } from './models/Subject'
 import { Timetable } from './models/Timetable'
 import schema from './schema'
@@ -25,6 +26,7 @@ export const database = new Database({
   modelClasses: [
     Timetable,
     AttendanceRecord,
-    Subject
+    Subject,
+    Preference
   ],
 })

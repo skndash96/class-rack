@@ -6,6 +6,7 @@ import { withObservables } from '@nozbe/watermelondb/react';
 import React, { useMemo } from 'react';
 import { ScrollView, useWindowDimensions, View } from 'react-native';
 import { Text } from 'react-native-paper';
+import Animated, { FadeInDown, FadeOutUp, LinearTransition } from 'react-native-reanimated';
 import EnhancedCell from './TableCell';
 
 const TableView = ({
@@ -33,7 +34,14 @@ const TableView = ({
   }, [entries]);
 
   return (
-    <View>
+    <Animated.View
+      layout={LinearTransition}
+      entering={FadeInDown}
+      exiting={FadeOutUp}
+      style={{
+        padding: 16
+      }}
+    >
       <ScrollView style={{
         marginBottom: 12
       }} horizontal>
@@ -53,7 +61,6 @@ const TableView = ({
             </View>
           ))}
         </View>
-
       </ScrollView>
 
       {mappedEntries.map((dayEntries, dayIdx) => (
@@ -63,7 +70,7 @@ const TableView = ({
         }}>
           {dayEntries.map((entry, entryIdx) => (
             entry ? (
-              <EnhancedCell entry={entry} subject={entry.subject.observe()} />
+              <EnhancedCell key={entryIdx} entry={entry} subject={entry.subject.observe()} />
             ) : (
               <View key={entryIdx} style={{
                 width: cellWidth,
@@ -79,7 +86,7 @@ const TableView = ({
           ))}
         </View>
       ))}
-    </View>
+    </Animated.View>
   )
 }
 
