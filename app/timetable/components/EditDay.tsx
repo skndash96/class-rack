@@ -67,8 +67,15 @@ const EditDay = ({
       return
     }
 
-    database.write(async () => {
-      await entry.markAsDeleted()
+    await database.write(async () => {
+      const newEntries = entries.filter(e => e.id !== entry.id)
+
+      await database.batch(
+        entry.prepareMarkAsDeleted(),
+        ...newEntries.map((e, index) => e.prepareUpdate((timetable) => {
+          timetable.slotNumber = index + 1
+        }))
+      )
     })
       .then(() => {
         Toast.show("Entry deleted successfully!", Toast.SHORT)

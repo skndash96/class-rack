@@ -15,14 +15,16 @@ const Wrapper = () => {
       flex: 1,
       backgroundColor: theme.colors.background
     }}>
-      <Stack screenOptions={{
-        animation: "fade",
-        animationDuration: 100,
-        headerShown: false,
-        contentStyle: {
-          backgroundColor: theme.colors.background
+      <Stack
+        screenOptions={{
+          animation: "fade",
+          animationDuration: 100,
+          headerShown: false,
+          contentStyle: {
+            backgroundColor: theme.colors.background
+          }
         }
-      }} />
+      } />
     </View>
   );
 }
