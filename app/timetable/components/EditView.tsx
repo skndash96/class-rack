@@ -16,11 +16,11 @@ export default function EditView() {
       flexDirection: 'column',
     }}>
       <ScrollView horizontal style={{
-        flexShrink: 1,
+        flexShrink: 0,
         flexGrow: 0,
       }} contentContainerStyle={{
         margin: 16,
-        marginBottom: 0,
+        marginBottom: 16,
         paddingRight: 40
       }}>
         <SegmentedButtons

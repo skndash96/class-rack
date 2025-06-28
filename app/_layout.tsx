@@ -1,5 +1,6 @@
 import BottomBar from "@/components/BottomBar";
 import TopBar from "@/components/TopBar";
+import { darkTheme } from "@/constants/theme";
 import { PreferencesProvider } from "@/contexts/Preferences";
 import { TopbarProvider } from "@/contexts/Topbar";
 import { Stack } from "expo-router";
@@ -29,7 +30,7 @@ const Wrapper = () => {
 export default function RootLayout() {
   return (
     <PreferencesProvider>
-      <PaperProvider>
+      <PaperProvider theme={darkTheme}>
         <TopbarProvider>
           <TopBar />
           <Wrapper />

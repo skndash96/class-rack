@@ -102,7 +102,7 @@ const RecordsList = ({
         )}
         ListEmptyComponent={() => (
           <View style={{ padding: 20, alignItems: 'center' }}>
-            <Text>No attendance records for today.</Text>
+            <Text>No Classes Today 🎉</Text>
           </View>
         )}
       />

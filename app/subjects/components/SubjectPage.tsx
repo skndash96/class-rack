@@ -23,7 +23,7 @@ const SubjectPage = ({
   const attendanceRecordsGrouped = useMemo(() => {
     const grouped: { [key: string]: AttendanceRecord[] } = {}
     attendanceRecords.forEach(record => {
-      const dateKey = record.date.toLocaleDateString("en-US", {
+      const dateKey = new Date(record.date).toLocaleDateString("en-US", {
         weekday: 'short',
         month: 'short',
         day: 'numeric'
@@ -96,8 +96,13 @@ const SubjectPage = ({
             marginTop: 12
           }}>
             <Icon color="rgba(38,255,38,0.4)" source="check-circle" size={20} />
+            <Text style={{
+              width: 80
+            }}>
+              Present
+            </Text>
             <Text>
-              {attendanceInfo.totalPresent} Present
+              {attendanceInfo.totalPresent}
             </Text>
           </View>
           <View style={{
@@ -107,8 +112,13 @@ const SubjectPage = ({
             marginTop: 12
           }}>
             <Icon color="rgba(255,38,38,0.5)" source="close-circle" size={20} />
+            <Text style={{
+              width: 80
+            }}>
+              Absent
+            </Text>
             <Text>
-              {attendanceInfo.totalClasses - attendanceInfo.totalPresent} Absent
+              {attendanceInfo.totalClasses - attendanceInfo.totalPresent}
             </Text>
           </View>
           <View style={{
@@ -118,8 +128,13 @@ const SubjectPage = ({
             marginTop: 12
           }}>
             <Icon color="rgba(255,156,38,0.5)" source="eye-off" size={20} />
+            <Text style={{
+              width: 80
+            }}>
+              Cancelled
+            </Text>
             <Text>
-              {attendanceInfo.totalCancelled} Cancelled
+              {attendanceInfo.totalCancelled}
             </Text>
           </View>
         </Card.Content>

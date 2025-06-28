@@ -46,9 +46,16 @@ export default function AddSubject() {
       )}
 
       <FAB
-        style={{ position: 'absolute', bottom: 24, right: 16 }}
+        style={{
+          marginHorizontal: 16,
+          // position: 'absolute',
+          // bottom: 24,
+          // right: 16
+        }}
         label='Add Subject'
         icon="plus"
+        mode="elevated"
+        elevation={0}
         onPress={() => setVisible(true)}
       />
     </>

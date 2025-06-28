@@ -17,6 +17,10 @@ function SubjectsList({ subjects, editMode = false }: {
 }) {
   return (
     <>
+      {editMode && (
+        <AddSubject />
+      )}
+
       <FlatList
         data={subjects}
         keyExtractor={(item) => item.id}
@@ -39,10 +43,6 @@ function SubjectsList({ subjects, editMode = false }: {
           }}>No subject s found</Text>
         )}
       />
-
-      {editMode && (
-        <AddSubject />
-      )}
     </>
   )
 }

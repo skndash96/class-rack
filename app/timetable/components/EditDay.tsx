@@ -122,11 +122,11 @@ const EditDay = ({
     <>
       <FlatList
         style={{
-          flex: 1,
+          flexGrow: 1
         }}
         contentContainerStyle={{
-          padding: 16,
-          paddingBottom: 100
+          paddingHorizontal: 16,
+          paddingBottom: 40
         }}
         data={entries}
         keyExtractor={(item) => item.id}
@@ -147,6 +147,19 @@ const EditDay = ({
         )}
       />
 
+      <FAB
+        icon="plus"
+        label="Add Entry"
+        onPress={() => setAddingEntry(true)}
+        style={{
+          marginHorizontal: 16,
+          marginBottom: 16,
+          // position: 'absolute',
+          // bottom: 40,
+          // right: 16
+        }}
+      />
+
       {addingEntry && (
         <AddEntryModal
           title={`Add Entry`}
@@ -154,13 +167,6 @@ const EditDay = ({
           onSubmit={handleAddEntry}
         />
       )}
-
-      <FAB
-        icon="plus"
-        label="Add Entry"
-        onPress={() => setAddingEntry(true)}
-        style={{ position: 'absolute', bottom: 40, right: 16 }}
-      />
     </>
   )
 }
