@@ -1,7 +1,6 @@
-import AntDesign from '@expo/vector-icons/AntDesign';
 import { usePathname, useRouter } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
-import { Button, useTheme } from 'react-native-paper';
+import { IconButton, useTheme } from 'react-native-paper';
 
 export default function BottomBar() {
   const router = useRouter();
@@ -18,15 +17,16 @@ export default function BottomBar() {
       {tabs.map(({ icon, path }) => {
         const isActive = path === "/" ? pathname === path : pathname.startsWith(path);
         return (
-          <Button
+          <IconButton
             key={path}
-            disabled={isActive}
-            mode={isActive ? 'contained-tonal' : 'text'}
+            icon={icon}
+            size={28}
+            mode={isActive ? 'contained-tonal' : undefined}
             onPress={() => router.replace(path as any)}
+            iconColor={isActive ? theme.colors.onPrimaryContainer : theme.colors.onSurfaceVariant}
+            containerColor={isActive ? theme.colors.primaryContainer : undefined}
             style={styles.button}
-          >
-            <AntDesign name={icon as any} size={24} color={isActive ? theme.colors.primary : theme.colors.onSurfaceVariant} />
-          </Button>
+          />
         );
       })}
     </View>
@@ -37,33 +37,40 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    paddingVertical: 8,
+    paddingTop: 8,
+    paddingBottom: 20,
     borderTopWidth: 1,
   },
   button: {
     borderRadius: 20,
+    color: 'red'
   },
 });
 
 const tabs = [
   {
     title: 'Home',
-    icon: 'home',
+    icon: 'home-outline',
     path: "/"
   },
   {
     title: 'Timetable',
-    icon: 'table',
+    icon: 'clock-time-four-outline',
     path: "/timetable"
   },
   {
+    title: 'Calendar',
+    icon: 'calendar-range-outline',
+    path: "/calendar"
+  },
+  {
     title: 'Files',
-    icon: 'folderopen',
+    icon: 'note-multiple-outline',
     path: "/subjects"
   },
   {
     title: 'Account',
-    icon: 'user',
+    icon: 'account-outline',
     path: "/account"
   }
 ]

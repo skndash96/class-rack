@@ -8,7 +8,8 @@ export default function Account() {
   
   useFocusEffect(useCallback(() => {
     setTopBarOptions({
-      title: "Account"
+      title: "Account",
+      isBackButtonVisible: false
     })
   }, []))
 

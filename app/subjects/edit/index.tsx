@@ -1,5 +1,4 @@
 import { useTopbar } from '@/contexts/Topbar';
-import AntDesign from '@expo/vector-icons/AntDesign';
 import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback } from 'react';
 import { View } from 'react-native';
@@ -13,11 +12,13 @@ export default function Subjects() {
   useFocusEffect(useCallback(() => {
     setTopBarOptions({
       title: "Subjects",
+      isBackButtonVisible: false,
       rightActions: [
         <IconButton
           onPress={() => router.back()}
           mode={"contained"}
-          icon={({ size, color }) => <AntDesign name={"check"} color={color} size={size} />} />,
+          icon="check"
+        />
       ]
     })
   }, []))

@@ -2,7 +2,7 @@ import { Subject } from "@/db/models/Subject"
 import { Timetable } from "@/db/models/Timetable"
 import { withObservables } from "@nozbe/watermelondb/react"
 import { Card, IconButton, Text, useTheme } from "react-native-paper"
-import Animated, { FadeInDown, FadeOutUp, LinearTransition } from 'react-native-reanimated'
+import Animated, { FadeInDown, LinearTransition } from 'react-native-reanimated'
 
 const EditDayRow = ({ entry, subject, loading, totalEntries, onDelete, onMoveUp, onMoveDown }: {
   entry: Timetable,
@@ -19,7 +19,7 @@ const EditDayRow = ({ entry, subject, loading, totalEntries, onDelete, onMoveUp,
     <Animated.View
       layout={LinearTransition}
       entering={FadeInDown}
-      exiting={FadeOutUp}
+      // exiting={FadeOutUp}
     >
       <Card style={{ marginVertical: 8 }}>
         <Card.Title

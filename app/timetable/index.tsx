@@ -1,5 +1,4 @@
 import { useTopbar } from "@/contexts/Topbar";
-import AntDesign from "@expo/vector-icons/AntDesign";
 import { Href, useFocusEffect, useRouter } from "expo-router";
 import { useCallback } from "react";
 import { ScrollView } from "react-native";
@@ -13,9 +12,10 @@ export default function Timetable() {
   useFocusEffect(useCallback(() => {
     setTopBarOptions({
       title: "Timetable",
+      isBackButtonVisible: false,
       rightActions: [
         <IconButton
-          icon={({ color, size }: { color: string; size: number }) => <AntDesign name="edit" size={size} color={color} />}
+          icon="pencil"
           onPress={() => router.push("/timetable/edit" as Href)}
         />
       ]

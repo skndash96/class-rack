@@ -29,7 +29,12 @@ export const attendanceRecordsTable = tableSchema({
 export class AttendanceRecord extends Model {
   static table = "attendance_records";
 
-  static associations = {};
+  static associations = {
+    subjects: {
+      type: 'belongs_to' as const,
+      key: 'subject_id'
+    },
+  };
 
   @relation("subjects", "subject_id") subject!: Relation<Subject>;
 

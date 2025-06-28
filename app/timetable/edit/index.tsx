@@ -1,5 +1,4 @@
 import { useTopbar } from "@/contexts/Topbar";
-import AntDesign from "@expo/vector-icons/AntDesign";
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback } from "react";
 import { View } from "react-native";
@@ -13,10 +12,11 @@ export default function Timetable() {
   useFocusEffect(useCallback(() => {
     setTopBarOptions({
       title: "Timetable",
+      isBackButtonVisible: false,
       rightActions: [
         <IconButton
           mode="contained-tonal"
-          icon={({ color, size }: { color: string; size: number }) => <AntDesign name="check" size={size} color={color} />}
+          icon="check"
           onPress={() => router.back()}
         />
       ]

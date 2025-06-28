@@ -8,7 +8,8 @@ export default function Files() {
 
   useFocusEffect(useCallback(() => {
     setTopBarOptions({
-      title: "Files"
+      title: "Files",
+      isBackButtonVisible: false
     })
   }, []))
 

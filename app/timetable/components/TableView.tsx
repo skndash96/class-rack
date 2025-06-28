@@ -5,7 +5,7 @@ import { Q } from '@nozbe/watermelondb';
 import { withObservables } from '@nozbe/watermelondb/react';
 import React, { useMemo } from 'react';
 import { ScrollView, useWindowDimensions, View } from 'react-native';
-import { Text } from 'react-native-paper';
+import { Surface, Text, useTheme } from 'react-native-paper';
 import Animated, { FadeInDown, FadeOutUp, LinearTransition } from 'react-native-reanimated';
 import EnhancedCell from './TableCell';
 
@@ -14,8 +14,18 @@ const TableView = ({
 }: {
   entries: Timetable[]
 }) => {
+  const theme = useTheme()
   const window = useWindowDimensions()
-  const cellWidth = Math.max(40, (window.width - 32) / 7)
+  const padding = 16
+  const gap = 4
+  const cellStyle = {
+    width: Math.max(40, (window.width - padding * 2 - gap * 6) / 7),
+    height: 48,
+    justifyContent: 'center' as const,
+    alignItems: 'center' as const,
+    backgroundColor: theme.colors.secondaryContainer,
+    borderRadius: 4
+  }
 
   const mappedEntries = useMemo(() => {
     const maxSlots = Math.max(0, ...entries.map(entry => entry.slotNumber))
@@ -39,7 +49,7 @@ const TableView = ({
       entering={FadeInDown}
       exiting={FadeOutUp}
       style={{
-        padding: 16
+        padding
       }}
     >
       <ScrollView style={{
@@ -48,17 +58,19 @@ const TableView = ({
         <View style={{
           display: 'flex',
           flexDirection: 'row',
+          gap
         }}>
           {numDayMap.map(day => (
-            <View key={day} style={[{
-              width: cellWidth,
-            }]}>
-              <Text style={{
-                textAlign: 'center'
-              }}>
-                {day.substring(0, 3)}
-              </Text>
-            </View>
+            <Text key={day} style={[
+              cellStyle,
+              {
+                backgroundColor: "transparent",
+                height: undefined,
+                textAlign: 'center',
+              }
+            ]}>
+              {day.substring(0, 3)}
+            </Text>
           ))}
         </View>
       </ScrollView>
@@ -66,22 +78,22 @@ const TableView = ({
       {mappedEntries.map((dayEntries, dayIdx) => (
         <View key={dayIdx} style={{
           display: 'flex',
-          flexDirection: 'row'
+          flexDirection: 'row',
+          gap,
+          marginBottom: gap
         }}>
           {dayEntries.map((entry, entryIdx) => (
             entry ? (
-              <EnhancedCell key={entryIdx} entry={entry} subject={entry.subject.observe()} />
+              <EnhancedCell
+                key={entryIdx}
+                entry={entry}
+                subject={entry.subject.observe()}
+                style={cellStyle}
+              />
             ) : (
-              <View key={entryIdx} style={{
-                width: cellWidth,
-                height: 48,
-                borderWidth: 1,
-                borderColor: '#444',
-                justifyContent: 'center',
-                alignItems: 'center'
-              }}>
+              <Surface key={entryIdx} style={cellStyle}>
                 <Text style={{ color: '#999' }}>-</Text>
-              </View>
+              </Surface>
             )
           ))}
         </View>

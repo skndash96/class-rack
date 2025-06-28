@@ -89,7 +89,7 @@ const RecordsList = ({
     <View>
       <FlatList
         contentContainerStyle={{
-          padding: 16,
+          paddingHorizontal: 16,
           paddingBottom: 100,
           display: "flex",
           flexDirection: "column",

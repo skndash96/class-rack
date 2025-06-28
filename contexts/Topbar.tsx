@@ -3,6 +3,7 @@ import React, { createContext, useContext, useState } from "react";
 interface TopbarContextState {
   title?: string;
   rightActions?: React.ReactNode[];
+  isBackButtonVisible?: boolean;
 }
 
 interface TopbarContextProps {

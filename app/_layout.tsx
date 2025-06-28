@@ -1,5 +1,6 @@
 import BottomBar from "@/components/BottomBar";
 import TopBar from "@/components/TopBar";
+import { PreferencesProvider } from "@/contexts/Preferences";
 import { TopbarProvider } from "@/contexts/Topbar";
 import { Stack } from "expo-router";
 import { View } from "react-native";
@@ -27,12 +28,14 @@ const Wrapper = () => {
 
 export default function RootLayout() {
   return (
-    <PaperProvider>
-      <TopbarProvider>
-        <TopBar />
-        <Wrapper />
-        <BottomBar />
-      </TopbarProvider>
-    </PaperProvider>
+    <PreferencesProvider>
+      <PaperProvider>
+        <TopbarProvider>
+          <TopBar />
+          <Wrapper />
+          <BottomBar />
+        </TopbarProvider>
+      </PaperProvider>
+    </PreferencesProvider>
   )
 }

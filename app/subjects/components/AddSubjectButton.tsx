@@ -1,6 +1,5 @@
 import { database } from '@/db'
 import { Subject } from '@/db/models/Subject'
-import AntDesign from '@expo/vector-icons/AntDesign'
 import React, { useState } from 'react'
 import { FAB } from 'react-native-paper'
 import Toast from 'react-native-simple-toast'
@@ -49,9 +48,7 @@ export default function AddSubject() {
       <FAB
         style={{ position: 'absolute', bottom: 24, right: 16 }}
         label='Add Subject'
-        icon={({ size, color }) => (
-          <AntDesign name="plus" size={size} color={color} />
-        )}
+        icon="plus"
         onPress={() => setVisible(true)}
       />
     </>

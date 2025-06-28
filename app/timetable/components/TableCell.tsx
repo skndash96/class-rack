@@ -1,28 +1,22 @@
 import { Subject } from "@/db/models/Subject"
 import { withObservables } from "@nozbe/watermelondb/react"
-import { useWindowDimensions, View } from "react-native"
-import { Text } from "react-native-paper"
+import { StyleProp, ViewStyle } from "react-native"
+import { Surface, Text } from "react-native-paper"
 
-const Cell = ({ subject }: { subject: Subject }) => {
-  const window = useWindowDimensions()
-  const cellWidth = Math.max(40, (window.width - 32) / 7)
-
+const Cell = ({ subject, style }: {
+  subject: Subject,
+  style: StyleProp<ViewStyle>
+}) => {
   return (
-    <View style={[{
-      width: cellWidth
-    }]}>
+    <Surface style={style}>
       <Text style={{
         wordWrap: "break-word",
         textAlign: 'center',
-        height: 48,
-        borderWidth: 1,
-        borderColor: '#444',
-        justifyContent: 'center',
-        alignItems: 'center'
+        verticalAlign: 'middle',
       }}>
         {subject.name}
       </Text>
-    </View>
+    </Surface>
   )
 }
 
