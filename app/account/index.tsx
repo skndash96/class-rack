@@ -1,7 +1,8 @@
 import { useTopbar } from "@/contexts/Topbar";
 import { useFocusEffect } from "expo-router";
 import { useCallback } from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
+import { Text } from "react-native-paper";
 
 export default function Account() {
   const { setTopBarOptions } = useTopbar();

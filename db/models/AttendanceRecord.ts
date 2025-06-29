@@ -12,12 +12,12 @@ export const attendanceRecordsTable = tableSchema({
     {
       name: 'status', // 0 = absent, 1 = present, 2 = leave
       type: 'number',
-      isIndexed: true,
       isOptional: true
     },
     {
       name: 'date',
-      type: 'number'
+      type: 'number',
+      isIndexed: true
     },
     {
       name: 'updated_at',

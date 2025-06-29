@@ -15,7 +15,7 @@ export default function BottomBar() {
       ]}
     >
       {tabs.map(({ icon, path }) => {
-        const isActive = path === "/" ? pathname === path : pathname.startsWith(path);
+        const isActive = path === "/" ? pathname.startsWith("/home") || pathname === path : pathname.startsWith(path);
         return (
           <IconButton
             key={path}
@@ -59,12 +59,7 @@ const tabs = [
     path: "/timetable"
   },
   {
-    title: 'Calendar',
-    icon: 'calendar-range-outline',
-    path: "/calendar"
-  },
-  {
-    title: 'Files',
+    title: 'Subjects',
     icon: 'note-multiple-outline',
     path: "/subjects"
   },

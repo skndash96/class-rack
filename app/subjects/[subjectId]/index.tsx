@@ -1,5 +1,5 @@
 import { useLocalSearchParams } from "expo-router";
-import EnhancedSubjectPage from "../components/SubjectPage";
+import EnhancedSubjectPage from "./components/SubjectPage";
 
 export default function Wrapper() {
   const { subjectId } = useLocalSearchParams();
