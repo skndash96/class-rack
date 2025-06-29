@@ -4,7 +4,7 @@ import { AttendanceRecord } from "@/db/models/AttendanceRecord";
 export function getAttendancePercentage(attendanceRecords: AttendanceRecord[], thresholdPercentage: number = DEFAULT_ATTENDANCE_THRESHOLD_PERCENTAGE) {
   const req = thresholdPercentage/100
 
-  let totalPresent = 0, totalClasses = 0, totalCancelled = 0
+  let totalPresent = 0, totalClasses = 0, totalCancelled = 0, totalUnmarked = 0
 
   attendanceRecords.forEach(record => {
     if (record.status === 1) {
@@ -14,6 +14,8 @@ export function getAttendancePercentage(attendanceRecords: AttendanceRecord[], t
       totalClasses++
     } else if (record.status === 2) {
       totalCancelled++
+    } else if (record.status === null || record.status === undefined) {
+      totalUnmarked++
     }
   })
 
@@ -32,7 +34,7 @@ export function getAttendancePercentage(attendanceRecords: AttendanceRecord[], t
     const x = Math.ceil((totalClasses * req - totalPresent) / (1 - req))
 
     if (x > 0) {
-      comment = `Can NOT miss ${x} more classes`
+      comment = `Can NOT miss next ${x} classes`
       commentColor = "BAD"
     }
   }
@@ -43,6 +45,14 @@ export function getAttendancePercentage(attendanceRecords: AttendanceRecord[], t
     commentColor,
     totalClasses,
     totalPresent,
-    totalCancelled
+    totalCancelled,
+    totalUnmarked,
+    markingColor: totalUnmarked > 0 
+      ? "cyan"
+      : totalClasses > totalPresent
+      ? "red"
+      :  totalClasses > 0
+      ? "green"
+      : "transparent"
   }
 }

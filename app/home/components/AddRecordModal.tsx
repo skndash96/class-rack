@@ -1,28 +1,47 @@
 import { database } from '@/db'
 import { Subject } from '@/db/models/Subject'
 import { withObservables } from '@nozbe/watermelondb/react'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Alert, Modal, ScrollView, StyleSheet, View } from 'react-native'
-import { Button, Card, List, useTheme } from 'react-native-paper'
+import DatePicker from 'react-native-date-picker'
+import { Button, Card, List, Text, useTheme } from 'react-native-paper'
+import Animated, { FadeInUp } from 'react-native-reanimated'
 
-const AddEntryModal = ({
+const AddRecordModal = ({
   title,
+  initialDate,
   onClose,
   onSubmit,
   subjects
 }: {
   subjects: Subject[],
+  initialDate: Date,
   title: string
   onSubmit: ({
-    subject
+    date,
+    subject,
   }: {
+    date: Date,
     subject: Subject
   }) => void,
   onClose: () => void
 }) => {
   const theme = useTheme()
   const [selectedSubject, setSelectedSubject] = useState<Subject | null>(null)
+  const [date, setDate] = useState(initialDate)
+  const [datePickerVisible, setDatePickerVisible] = useState(false)
   const [loading, setLoading] = useState(false)
+  const dateComment = useMemo(() => {
+    if (date.setHours(0,0,0,0) === new Date().setHours(0,0,0,0)) {
+      return 'Today'
+    }
+
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    })
+  }, [date])
 
   const handleSubmit = () => {
     setLoading(true)
@@ -34,6 +53,7 @@ const AddEntryModal = ({
     }
 
     onSubmit({
+      date: date || new Date(),
       subject: selectedSubject
     })
   }
@@ -44,11 +64,61 @@ const AddEntryModal = ({
         <Card style={styles.modalContainer}>
           <Card.Title titleVariant='headlineSmall' title={title} style={styles.cardTitle} />
           <Card.Content>
-            <ScrollView style={{ maxHeight: 300 }}>
+            <Text style={{
+              marginBottom: 10,
+              fontSize: 18
+            }}>
+              Occurence Date:
+            </Text>
+
+            <Button
+              icon="calendar"
+              mode="elevated"
+              elevation={4}
+              style={{
+                backgroundColor: theme.colors.elevation.level4,
+              }}
+              onPress={() => setDatePickerVisible(true)}
+            >
+              {dateComment}
+            </Button>
+
+            {datePickerVisible && (
+              <Animated.View
+                entering={FadeInUp}
+              >
+                <DatePicker
+                  date={date || new Date()}
+                  mode="date"
+                  onDateChange={(date) => {
+                    setDate(date)
+                  }}
+                  style={{
+                    marginHorizontal: 'auto'
+                  }}
+                />
+              </Animated.View>
+            )}
+
+            <Text style={{
+              marginTop: 20,
+              marginBottom: 10,
+              fontSize: 18
+            }}>
+              Select Subject:
+            </Text>
+
+            <ScrollView style={{
+              backgroundColor: theme.colors.elevation.level4,
+              maxHeight: 200,
+              borderRadius: 20
+            }}>
               {subjects.map((subject) => (
                 <List.Item
                   title={subject.name}
                   style={{
+                    borderBottomWidth: 1,
+                    borderBottomColor: theme.colors.outlineVariant,
                     backgroundColor: selectedSubject && selectedSubject.id === subject.id ? theme.colors.primaryContainer : 'transparent',
                   }}
                   description={subject.code}
@@ -73,11 +143,12 @@ const enhanceAddEntryModal = withObservables([], () => ({
   subjects: database.get<Subject>('subjects').query().observe(),
 }))
 
-export default enhanceAddEntryModal(AddEntryModal)
+export default enhanceAddEntryModal(AddRecordModal)
 
 const styles = StyleSheet.create({
   modalContainer: {
-    margin: 80,
+    margin: 20,
+    marginTop: 80
   },
   backdrop: {
     flex: 1,

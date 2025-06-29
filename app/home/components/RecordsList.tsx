@@ -4,14 +4,16 @@ import { Q } from '@nozbe/watermelondb'
 import { withObservables } from '@nozbe/watermelondb/react'
 import { FlatList, View } from 'react-native'
 import { Text } from 'react-native-paper'
+import AddRecordButton from './AddRecordButton'
 import EnhancedRecordItem from './RecordItem'
 
 const RecordsList = ({
+  dateString,
   records
 }: {
   dateString: string | number, // YYYY-MM-DD or timestamp
   records: AttendanceRecord[]
-}) => {
+}) => {  
   return (
     <View>
       <FlatList
@@ -32,6 +34,10 @@ const RecordsList = ({
             <Text>No Classes Today 🎉</Text>
           </View>
         )}
+      />
+
+      <AddRecordButton
+        initialDate={new Date(dateString)}
       />
     </View>
   )

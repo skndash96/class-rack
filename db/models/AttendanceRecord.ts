@@ -40,6 +40,6 @@ export class AttendanceRecord extends Model {
 
   @field("subject_id") subjectId!: string;
   @field("status") status?: number; // 0 = absent, 1 = present, 2 = leave
-  @date("date") date!: number;
+  @date("date") date!: Date;
   @readonly @date("updated_at") updatedAt!: Date;
 }

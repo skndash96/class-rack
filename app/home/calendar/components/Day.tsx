@@ -1,4 +1,5 @@
 import { AttendanceRecord } from '@/db/models/AttendanceRecord'
+import { getAttendancePercentage } from '@/utils/getAttendancePercentage'
 import React, { useMemo } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import { DateData } from 'react-native-calendars'
@@ -19,10 +20,7 @@ export default function DayComponent({
   const theme = useTheme()
 
   const type = useMemo(() => {
-    if (records.some(record => record.status === 0)) return 'red'
-    if (records.some(record => record.status === 1)) return 'green'
-    if (records.some(record => record.status === undefined)) return 'cyan'
-    return 'transparent'
+    return getAttendancePercentage(records).markingColor
   }, [records])
 
   return (

@@ -26,7 +26,7 @@ const CalendarPage = ({
     const grouped = new Map<string, AttendanceRecord[]>();
 
     records.forEach(record => {
-      const d = new Date(record.date)
+      const d = record.date
       const date = `${d.getFullYear()}-${(d.getMonth() + 1).toString().padStart(2, '0')}-${d.getDate().toString().padStart(2, '0')}`;
 
       if (!grouped.has(date)) {
@@ -52,7 +52,7 @@ const CalendarPage = ({
           backgroundColor: theme.colors.elevation.level5,
         }}>
           <BottomSheetView style={[styles.contentContainer, {
-            height: height * 0.9
+            paddingBottom: 60
           }]}>
             <Calendar
               firstDay={1}

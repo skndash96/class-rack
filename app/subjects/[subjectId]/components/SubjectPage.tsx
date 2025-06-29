@@ -23,7 +23,7 @@ const SubjectPage = ({
   const attendanceRecordsGrouped = useMemo(() => {
     const grouped: { [key: string]: AttendanceRecord[] } = {}
     attendanceRecords.forEach(record => {
-      const dateKey = new Date(record.date).toLocaleDateString("en-US", {
+      const dateKey = record.date.toLocaleDateString("en-US", {
         weekday: 'short',
         month: 'short',
         day: 'numeric'
@@ -127,11 +127,27 @@ const SubjectPage = ({
             gap: 8,
             marginTop: 12
           }}>
-            <Icon color="rgba(255,156,38,0.5)" source="eye-off" size={20} />
+            <Icon color="rgba(255,156,38,0.5)" source="cancel" size={20} />
             <Text style={{
               width: 80
             }}>
               Cancelled
+            </Text>
+            <Text>
+              {attendanceInfo.totalCancelled}
+            </Text>
+          </View>
+          <View style={{
+            display: "flex",
+            flexDirection: "row",
+            gap: 8,
+            marginTop: 12
+          }}>
+            <Icon color="rgba(56, 223, 235, 0.5)" source="eye-off" size={20} />
+            <Text style={{
+              width: 80
+            }}>
+              Unmarked
             </Text>
             <Text>
               {attendanceInfo.totalCancelled}

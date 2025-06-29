@@ -4,6 +4,7 @@ import { Subject } from '@/db/models/Subject'
 import { getAttendancePercentage } from '@/utils/getAttendancePercentage'
 import { withObservables } from '@nozbe/watermelondb/react'
 import React from 'react'
+import { Alert } from 'react-native'
 import { Card, IconButton, Text, useTheme } from 'react-native-paper'
 import Animated, { FadeInDown, FadeOutUp, LinearTransition } from 'react-native-reanimated'
 import Toast from 'react-native-simple-toast'
@@ -24,6 +25,28 @@ const RecordItem = ({
   }, [attendanceRecords])
 
   const handleUpdateStatus = async (status: number) => {
+    if (status !== 2 && record.date > new Date()) {
+      const confirmed = await new Promise<boolean>(r => {
+        Alert.prompt(
+          "Confirm Action",
+          "You are trying to mark a record for a future date. Are you sure you want to proceed?",
+          [
+            {
+              text: "Cancel",
+              style: "cancel",
+              onPress: () => r(false)
+            },
+            {
+              text: "OK",
+              onPress: () => r(true)
+            }
+          ]
+        )
+      })
+
+      if (!confirmed) return
+    }
+
     const toStatus = record.status === status ? undefined : status
 
     setLoading(true)
@@ -96,7 +119,7 @@ const RecordItem = ({
         <Card.Actions>
           <IconButton
             disabled={loading}
-            icon="eye-off-outline"
+            icon="cancel"
             mode="contained-tonal"
             containerColor={record.status === 2 ? "rgba(255,156,38,0.4)" : undefined}
             iconColor={record.status === 2 ? theme.colors.onSurface : undefined}

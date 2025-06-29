@@ -29,15 +29,18 @@ export default function DayInfo({
           const today = new Date().setHours(0, 0, 0, 0)
           if (new Date(dateString).setHours(0,0,0,0) !== today) {
             router.replace(`/home/${dateString}` as any)
+          } else {
+            router.back()
           }
+        }}
+        style={{
+          marginBottom: 20
         }}
         contentStyle={{
           display: "flex",
           flexDirection: "row",
           justifyContent: "center",
           alignItems: "center",
-          marginRight: 'auto',
-          transform: [{ translateX: -10 }],
         }}
       >
         <Text variant='titleLarge' style={{
@@ -45,7 +48,8 @@ export default function DayInfo({
         }}>
           {new Date(dateString).toLocaleDateString('en-US', {
             month: 'short',
-            day: 'numeric'
+            day: 'numeric',
+            year: 'numeric',
           })}
         </Text>
 
@@ -103,12 +107,25 @@ export default function DayInfo({
           flexDirection: "row",
           gap: 8
         }}>
-          <Icon color="rgba(255,156,38,0.5)" source="eye-off" size={20} />
+          <Icon color="rgba(255,156,38,0.5)" source="cancel" size={20} />
           <Text>
             Cancelled
           </Text>
           <Text>
             {attendanceInfo.totalCancelled}
+          </Text>
+        </View>
+        <View style={{
+          display: "flex",
+          flexDirection: "row",
+          gap: 8
+        }}>
+          <Icon color="rgba(56, 223, 235, 0.5)" source="eye-off" size={20} />
+          <Text>
+            Unmarked
+          </Text>
+          <Text>
+            {attendanceInfo.totalUnmarked}
           </Text>
         </View>
       </View>
