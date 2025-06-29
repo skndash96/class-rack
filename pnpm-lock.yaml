@@ -17,9 +17,6 @@ importers:
       '@nozbe/watermelondb':
         specifier: ^0.28.0
         version: 0.28.0
-      '@react-native-community/datetimepicker':
-        specifier: 8.4.1
-        version: 8.4.1(expo@53.0.13(@babel/core@7.27.4)(@expo/metro-runtime@5.0.4(react-native@0.79.4(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0)))(react-native-webview@13.13.5(react-native@0.79.4(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.4(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.4(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
       '@react-navigation/bottom-tabs':
         specifier: ^7.3.10
         version: 7.3.14(@react-navigation/native@7.1.10(react-native@0.79.4(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native-safe-area-context@5.4.0(react-native@0.79.4(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native-screens@4.11.1(react-native@0.79.4(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.4(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
@@ -55,7 +52,7 @@ importers:
         version: 7.1.5(expo@53.0.13(@babel/core@7.27.4)(@expo/metro-runtime@5.0.4(react-native@0.79.4(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0)))(react-native-webview@13.13.5(react-native@0.79.4(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.4(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.4(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
       expo-router:
         specifier: ~5.1.1
-        version: 5.1.1(59e67651b183621f1262c441ed6b0026)
+        version: 5.1.1(y367s6dhlbxg4urqp45xlusb3q)
       expo-splash-screen:
         specifier: ~0.30.9
         version: 0.30.9(expo@53.0.13(@babel/core@7.27.4)(@expo/metro-runtime@5.0.4(react-native@0.79.4(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0)))(react-native-webview@13.13.5(react-native@0.79.4(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.4(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))
@@ -997,19 +994,6 @@ packages:
       react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
     peerDependenciesMeta:
       '@types/react':
-        optional: true
-
-  '@react-native-community/datetimepicker@8.4.1':
-    resolution: {integrity: sha512-DrK+CUS5fZnz8dhzBezirkzQTcNDdaXer3oDLh0z4nc2tbdIdnzwvXCvi8IEOIvleoc9L95xS5tKUl0/Xv71Mg==}
-    peerDependencies:
-      expo: '>=52.0.0'
-      react: '*'
-      react-native: '*'
-      react-native-windows: '*'
-    peerDependenciesMeta:
-      expo:
-        optional: true
-      react-native-windows:
         optional: true
 
   '@react-native/assets-registry@0.79.4':
@@ -5412,14 +5396,6 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.0.14
 
-  '@react-native-community/datetimepicker@8.4.1(expo@53.0.13(@babel/core@7.27.4)(@expo/metro-runtime@5.0.4(react-native@0.79.4(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0)))(react-native-webview@13.13.5(react-native@0.79.4(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.4(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.4(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)':
-    dependencies:
-      invariant: 2.2.4
-      react: 19.0.0
-      react-native: 0.79.4(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0)
-    optionalDependencies:
-      expo: 53.0.13(@babel/core@7.27.4)(@expo/metro-runtime@5.0.4(react-native@0.79.4(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0)))(react-native-webview@13.13.5(react-native@0.79.4(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.4(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
-
   '@react-native/assets-registry@0.79.4': {}
 
   '@react-native/babel-plugin-codegen@0.79.4(@babel/core@7.27.4)':
@@ -6911,7 +6887,7 @@ snapshots:
     dependencies:
       invariant: 2.2.4
 
-  expo-router@5.1.1(59e67651b183621f1262c441ed6b0026):
+  expo-router@5.1.1(y367s6dhlbxg4urqp45xlusb3q):
     dependencies:
       '@expo/metro-runtime': 5.0.4(react-native@0.79.4(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))
       '@expo/server': 0.6.3
