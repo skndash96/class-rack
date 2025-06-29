@@ -48,6 +48,8 @@ const CalendarPage = ({
       <GestureHandlerRootView style={styles.container}>
         <BottomSheet enablePanDownToClose onClose={router.back} backgroundStyle={{
           backgroundColor: theme.colors.elevation.level5,
+        }} handleStyle={{
+          backgroundColor: theme.colors.elevation.level5,
         }}>
           <BottomSheetView style={[styles.contentContainer, {
             height: height * 0.9

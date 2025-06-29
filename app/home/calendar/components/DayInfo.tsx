@@ -26,7 +26,10 @@ export default function DayInfo({
     }}>
       <Button
         onPress={() => {
-          router.replace(`/home/${dateString}` as any)
+          const today = new Date().setHours(0, 0, 0, 0)
+          if (new Date(dateString).setHours(0,0,0,0) !== today) {
+            router.replace(`/home/${dateString}` as any)
+          }
         }}
         contentStyle={{
           display: "flex",

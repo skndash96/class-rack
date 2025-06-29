@@ -83,13 +83,13 @@ const SubjectItem = ({
             <>
               <Text style={{
                 fontSize: 24,
-                color: theme.colors.onSecondaryContainer
+                color: attendanceInfo.commentColor === 'BAD' ? theme.colors.onErrorContainer : theme.colors.onSecondaryContainer
               }}>
                 {attendanceInfo.percentage.split(".")[0]}
               </Text>
               <Text style={{
                 fontSize: 12,
-                color: theme.colors.onSecondaryContainer
+                color: attendanceInfo.commentColor === 'BAD' ? theme.colors.onErrorContainer : theme.colors.onSecondaryContainer
               }}>
                 {"." + (attendanceInfo.percentage.split('.')[1] || "00")} %
               </Text>

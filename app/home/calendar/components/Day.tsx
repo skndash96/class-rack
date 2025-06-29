@@ -47,7 +47,8 @@ export default function DayComponent({
         aspectRatio: 1,
         borderRadius: 5,
         marginHorizontal: 'auto',
-        backgroundColor: type
+        backgroundColor: type,
+        transform: [{ translateY: -4 }],
       }} />
     </TouchableOpacity>
   )
