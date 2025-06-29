@@ -3,9 +3,10 @@ import { AttendanceRecord } from '@/db/models/AttendanceRecord'
 import { Subject } from '@/db/models/Subject'
 import { getAttendancePercentage } from '@/utils/getAttendancePercentage'
 import { withObservables } from '@nozbe/watermelondb/react'
+import { useRouter } from 'expo-router'
 import React from 'react'
-import { Alert } from 'react-native'
-import { Card, IconButton, Text, useTheme } from 'react-native-paper'
+import { Alert, TouchableOpacity } from 'react-native'
+import { Card, Icon, IconButton, Text, useTheme } from 'react-native-paper'
 import Animated, { FadeInDown, FadeOutUp, LinearTransition } from 'react-native-reanimated'
 import Toast from 'react-native-simple-toast'
 
@@ -18,6 +19,7 @@ const RecordItem = ({
   subject: Subject,
   attendanceRecords: AttendanceRecord[]
 }) => {
+  const router = useRouter()
   const theme = useTheme()
   const [loading, setLoading] = React.useState(false)
   const attendanceInfo = React.useMemo(() => {
@@ -25,9 +27,9 @@ const RecordItem = ({
   }, [attendanceRecords])
 
   const handleUpdateStatus = async (status: number) => {
-    if (status !== 2 && record.date > new Date()) {
+    if (status === null && record.date > new Date()) {
       const confirmed = await new Promise<boolean>(r => {
-        Alert.prompt(
+        Alert.alert(
           "Confirm Action",
           "You are trying to mark a record for a future date. Are you sure you want to proceed?",
           [
@@ -72,36 +74,50 @@ const RecordItem = ({
       exiting={FadeOutUp}
     >
       <Card>
-        <Card.Title
-          title={subject.name}
-          subtitle={`${subject.code} (${subject.credits} credits)`}
-          left={() => (
-            <>
-              <Text style={{
-                fontSize: 24,
-                color: attendanceInfo.commentColor === 'BAD' ? theme.colors.onErrorContainer : theme.colors.onSecondaryContainer
-              }}>
-                {attendanceInfo.percentage.split(".")[0]}
-              </Text>
-              <Text style={{
-                fontSize: 12,
-                color: attendanceInfo.commentColor === 'BAD' ? theme.colors.onErrorContainer : theme.colors.onSecondaryContainer
-              }}>
-                {"." + (attendanceInfo.percentage.split('.')[1] || "00")} %
-              </Text>
-            </>
-          )}
-          leftStyle={{
-            width: 60,
-            height: 60,
-            borderRadius: 40,
-            backgroundColor: theme.colors.secondaryContainer,
-            margin: 8,
-            marginLeft: 0,
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}
-        />
+        <TouchableOpacity
+          onPress={() => router.push('/subjects/'+subject.id as any)}
+          activeOpacity={0.5}
+        >
+          <Card.Title
+            title={subject.name}
+            subtitle={`${subject.code} (${subject.credits} credits)`}
+            left={() => (
+              <>
+                <Text style={{
+                  fontSize: 24,
+                  color: attendanceInfo.commentColor === 'BAD' ? theme.colors.onErrorContainer : theme.colors.onSecondaryContainer
+                }}>
+                  {attendanceInfo.percentage.split(".")[0]}
+                </Text>
+                <Text style={{
+                  fontSize: 12,
+                  color: attendanceInfo.commentColor === 'BAD' ? theme.colors.onErrorContainer : theme.colors.onSecondaryContainer
+                }}>
+                  {"." + (attendanceInfo.percentage.split('.')[1] || "00")} %
+                </Text>
+              </>
+            )}
+            leftStyle={{
+              width: 60,
+              height: 60,
+              borderRadius: 40,
+              backgroundColor: theme.colors.secondaryContainer,
+              margin: 8,
+              marginLeft: 0,
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}
+            right={() => (
+              <Icon
+                source="chevron-right"
+                size={24}
+              />
+            )}
+            rightStyle={{
+              marginRight: 16
+            }}
+          />
+        </TouchableOpacity>
 
         <Card.Content>
           <Text style={{

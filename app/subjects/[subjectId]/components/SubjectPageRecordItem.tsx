@@ -39,12 +39,12 @@ export default function SubjectPageRecordItem({
     <Card style={{ marginBottom: 8 }}>
       <Card.Title
         title={subject.name}
-        subtitle={`Status: ${record.status === 1 ? 'Present' : record.status === 0 ? 'Absent' : 'Cancelled'}`}
+        subtitle={`Status: ${record.status === 1 ? 'Present' : record.status === 0 ? 'Absent' : record.status === 2 ? 'Cancelled' : 'Not Marked'}`}
         left={() => (
           <Icon
-            source={record.status === 1 ? 'check-circle' : record.status === 0 ? 'close-circle' : 'eye-off'}
+            source={record.status === 1 ? 'check-circle' : record.status === 0 ? 'close-circle' : record.status === 2 ? 'cancel' : 'eye-off'}
             size={24}
-            color={record.status === 1 ? theme.colors.primary : record.status === 0 ? theme.colors.error : theme.colors.tertiary}
+            color={record.status === 1 ? theme.colors.primary : record.status === 0 ? theme.colors.error : record.status === 2 ? 'rgba(232, 150, 43, 0.8)' : 'rgba(34, 203, 206, 0.7)'}
           />
         )}
         right={() => (

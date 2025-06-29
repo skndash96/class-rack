@@ -22,6 +22,7 @@ export default function AddSubject() {
         subject.name = name
         subject.code = code
         subject.credits = credits
+        subject.isArchived = false
       })
     })
       .then(() => {

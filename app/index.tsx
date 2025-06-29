@@ -7,7 +7,7 @@ import { Q } from "@nozbe/watermelondb";
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useEffect } from "react";
 import { View } from "react-native";
-import { Button, Icon, useTheme } from "react-native-paper";
+import { Button, Icon, Text, useTheme } from "react-native-paper";
 import Toast from "react-native-simple-toast";
 import RecordsList from "./home/components/RecordsList";
 
@@ -124,6 +124,13 @@ export default function Index() {
         flex: 1
       }}
     >
+      <Text style={{
+        margin: 16,
+        fontSize: 18
+      }}>
+        Today's Classes
+      </Text>
+
       <RecordsList dateString={startOfDay} />
     </View>
   );

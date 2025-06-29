@@ -5,7 +5,7 @@ import { getAttendancePercentage } from '@/utils/getAttendancePercentage'
 import { withObservables } from '@nozbe/watermelondb/react'
 import { useRouter } from 'expo-router'
 import React, { useMemo } from 'react'
-import { Alert } from 'react-native'
+import { Alert, TouchableOpacity } from 'react-native'
 import { Card, IconButton, Text, useTheme } from 'react-native-paper'
 import Animated, { FadeInDown, LinearTransition } from 'react-native-reanimated'
 import SubjectModal from './SubjectModal'
@@ -67,46 +67,48 @@ const SubjectItem = ({
     <Animated.View
       layout={LinearTransition}
       entering={FadeInDown}
-      // exiting={FadeOutUp}
+    // exiting={FadeOutUp}
     >
-      <Card onPress={() => !editMode && router.push("/subjects/"+subject.id as any)} mode="elevated" style={{}} elevation={2}>
-        <Card.Title
-          title={subject.name}
-          subtitle={`${subject.code} (${subject.credits} credits)`}
-          right={() => !editMode && (
-            <IconButton
-              icon="chevron-right"
-              size={24}
-            />
-          )}
-          left={() => (
-            <>
-              <Text style={{
-                fontSize: 24,
-                color: attendanceInfo.commentColor === 'BAD' ? theme.colors.onErrorContainer : theme.colors.onSecondaryContainer
-              }}>
-                {attendanceInfo.percentage.split(".")[0]}
-              </Text>
-              <Text style={{
-                fontSize: 12,
-                color: attendanceInfo.commentColor === 'BAD' ? theme.colors.onErrorContainer : theme.colors.onSecondaryContainer
-              }}>
-                {"." + (attendanceInfo.percentage.split('.')[1] || "00")} %
-              </Text>
-            </>
-          )}
-          leftStyle={{
-            width: 60,
-            height: 60,
-            borderRadius: 40,
-            backgroundColor: theme.colors.secondaryContainer,
-            margin: 8,
-            marginLeft: 0,
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}
-        />
-        
+      <Card mode="elevated" style={{}} elevation={2}>
+        <TouchableOpacity activeOpacity={editMode ? 1 : 0.6} onPress={() => !editMode && router.push("/subjects/" + subject.id as any)}>
+          <Card.Title
+            title={subject.name}
+            subtitle={`${subject.code} (${subject.credits} credits)`}
+            right={() => !editMode && (
+              <IconButton
+                icon="chevron-right"
+                size={24}
+              />
+            )}
+            left={() => (
+              <>
+                <Text style={{
+                  fontSize: 24,
+                  color: attendanceInfo.commentColor === 'BAD' ? theme.colors.onErrorContainer : theme.colors.onSecondaryContainer
+                }}>
+                  {attendanceInfo.percentage.split(".")[0]}
+                </Text>
+                <Text style={{
+                  fontSize: 12,
+                  color: attendanceInfo.commentColor === 'BAD' ? theme.colors.onErrorContainer : theme.colors.onSecondaryContainer
+                }}>
+                  {"." + (attendanceInfo.percentage.split('.')[1] || "00")} %
+                </Text>
+              </>
+            )}
+            leftStyle={{
+              width: 60,
+              height: 60,
+              borderRadius: 40,
+              backgroundColor: theme.colors.secondaryContainer,
+              margin: 8,
+              marginLeft: 0,
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}
+          />
+        </TouchableOpacity >
+
         {editMode && (
           <Card.Actions>
             {editModalVisible && (

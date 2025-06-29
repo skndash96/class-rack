@@ -1,5 +1,5 @@
 import { Model, Q, Query, tableSchema } from "@nozbe/watermelondb";
-import { children, field, lazy } from "@nozbe/watermelondb/decorators";
+import { children, date, field, lazy, readonly } from "@nozbe/watermelondb/decorators";
 import { AttendanceRecord } from "./AttendanceRecord";
 
 export const subjectsTable = tableSchema({
@@ -17,6 +17,14 @@ export const subjectsTable = tableSchema({
       name: "credits",
       type: "number",
     },
+    {
+      name: "is_archived",
+      type: "boolean"
+    },
+    {
+      name: 'created_at',
+      type: 'number'
+    },
   ],
 })
 
@@ -33,6 +41,8 @@ export class Subject extends Model {
   @field("name") name!: string;
   @field("code") code!: string;
   @field("credits") credits!: number;
+  @field("is_archived") isArchived!: boolean;
+  @readonly @date("created_at") createdAt!: Date;
 
   // TODO: make this a lazy query
   @children("attendance_records") attendanceRecords!: Query<AttendanceRecord>;

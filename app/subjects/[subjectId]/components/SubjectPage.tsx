@@ -150,7 +150,7 @@ const SubjectPage = ({
               Unmarked
             </Text>
             <Text>
-              {attendanceInfo.totalCancelled}
+              {attendanceInfo.totalUnmarked}
             </Text>
           </View>
         </Card.Content>

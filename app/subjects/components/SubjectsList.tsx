@@ -1,5 +1,6 @@
 import { database } from '@/db'
 import { Subject } from '@/db/models/Subject'
+import { Q } from '@nozbe/watermelondb'
 import { withObservables } from '@nozbe/watermelondb/react'
 import React from 'react'
 import { FlatList } from 'react-native'
@@ -8,7 +9,7 @@ import AddSubject from './AddSubjectButton'
 import SubjectItem from './SubjectItem'
 
 const enhanceSubjectsList = withObservables([], () => ({
-  subjects: database.get<Subject>('subjects').query().observe(),
+  subjects: database.get<Subject>('subjects').query(Q.where("is_archived", false)).observe(),
 }))
 
 function SubjectsList({ subjects, editMode = false }: {
@@ -40,7 +41,7 @@ function SubjectsList({ subjects, editMode = false }: {
         ListEmptyComponent={() => (
           <Text style={{
             padding: 12
-          }}>No subject s found</Text>
+          }}>No subjects found</Text>
         )}
       />
     </>
