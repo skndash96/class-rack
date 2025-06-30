@@ -1,3 +1,4 @@
+import RecordsList from "@/components/home/RecordsList";
 import { useTopbar } from "@/contexts/Topbar";
 import { database } from "@/db";
 import { AttendanceRecord } from "@/db/models/AttendanceRecord";
@@ -9,7 +10,6 @@ import { useCallback, useEffect } from "react";
 import { View } from "react-native";
 import { Button, Icon, Text, useTheme } from "react-native-paper";
 import Toast from "react-native-simple-toast";
-import RecordsList from "./home/components/RecordsList";
 
 export default function Index() {
   const today = new Date();

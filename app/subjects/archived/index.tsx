@@ -1,5 +1,5 @@
+import EnhancedArchiveSubjectsList from '@/components/subjects/archived/ArchiveSubjectsList';
 import { View } from 'react-native';
-import EnhancedArchiveSubjectsList from './components/ArchiveSubjectsList';
 
 export default function ArchivedSubjects() {
   return (

@@ -1,9 +1,9 @@
+import EditView from "@/components/timetable/edit/EditView";
 import { useTopbar } from "@/contexts/Topbar";
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback } from "react";
 import { View } from "react-native";
 import { IconButton } from "react-native-paper";
-import EditView from "../components/EditView";
 
 export default function Timetable() {
   const router = useRouter();

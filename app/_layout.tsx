@@ -23,8 +23,8 @@ const Wrapper = () => {
           contentStyle: {
             backgroundColor: theme.colors.background
           }
-        }
-      } />
+        }}
+      />
     </View>
   );
 }

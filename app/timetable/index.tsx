@@ -1,9 +1,9 @@
+import TableView from "@/components/timetable/TableView";
 import { useTopbar } from "@/contexts/Topbar";
 import { Href, useFocusEffect, useRouter } from "expo-router";
 import { useCallback } from "react";
 import { ScrollView } from "react-native";
 import { IconButton } from "react-native-paper";
-import TableView from "./components/TableView";
 
 export default function Timetable() {
   const router = useRouter();

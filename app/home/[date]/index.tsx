@@ -1,7 +1,7 @@
+import RecordsList from "@/components/home/RecordsList";
 import { useTopbar } from '@/contexts/Topbar';
 import { useFocusEffect, useLocalSearchParams } from 'expo-router';
 import React, { useCallback } from 'react';
-import RecordsList from "../components/RecordsList";
 
 export default function DatePage() {
   const { date: dateParam } = useLocalSearchParams()

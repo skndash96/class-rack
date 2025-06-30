@@ -91,7 +91,7 @@ const ArchiveSubjectsList = ({
   }, [subjects, subjectsArchivedMap])
 
   useFocusEffect(useCallback(() => {
-    BackHandler.addEventListener('hardwareBackPress', () => {
+    const subscription = BackHandler.addEventListener('hardwareBackPress', () => {
       if (isEditing) {
         resetSubjectsArchivedMap()
         return true
@@ -114,6 +114,10 @@ const ArchiveSubjectsList = ({
         </Button>
       ] : undefined
     })
+
+    return () => {
+      subscription.remove()
+    }
   }, [isEditing]))
 
   useEffect(() => {

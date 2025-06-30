@@ -1,6 +1,8 @@
+import SubjectModal from '@/components/subjects/edit/SubjectModal'
 import { usePreferences } from '@/contexts/Preferences'
 import { AttendanceRecord } from '@/db/models/AttendanceRecord'
 import { Subject } from '@/db/models/Subject'
+import { handleDeleteSubject, handleEditSubject } from '@/services/subjects'
 import { getAttendancePercentage } from '@/utils/getAttendancePercentage'
 import { withObservables } from '@nozbe/watermelondb/react'
 import { useRouter } from 'expo-router'
@@ -8,8 +10,6 @@ import React, { useMemo } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { Card, IconButton, Text, useTheme } from 'react-native-paper'
 import Animated, { FadeInDown, LinearTransition } from 'react-native-reanimated'
-import { handleDeleteSubject, handleEditSubject } from '../services/subject'
-import SubjectModal from './SubjectModal'
 
 const SubjectItem = ({
   subject,

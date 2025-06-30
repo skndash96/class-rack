@@ -1,16 +1,16 @@
+import SubjectModal from '@/components/subjects/edit/SubjectModal'
 import { usePreferences } from '@/contexts/Preferences'
 import { useTopbar } from '@/contexts/Topbar'
 import { database } from '@/db'
 import { AttendanceRecord } from '@/db/models/AttendanceRecord'
 import { Subject } from '@/db/models/Subject'
+import { handleDeleteSubject, handleEditSubject } from '@/services/subjects'
 import { getAttendancePercentage } from '@/utils/getAttendancePercentage'
 import { withObservables } from '@nozbe/watermelondb/react'
 import { useFocusEffect } from 'expo-router'
 import React, { useCallback, useMemo } from 'react'
 import { SectionList, View } from 'react-native'
 import { Card, Icon, IconButton, Menu, Text, useTheme } from 'react-native-paper'
-import SubjectModal from '../../components/SubjectModal'
-import { handleDeleteSubject, handleEditSubject } from '../../services/subject'
 import SubjectPageRecordItem from './SubjectPageRecordItem'
 
 const SubjectPage = ({

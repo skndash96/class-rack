@@ -1,3 +1,5 @@
+import DayComponent from '@/components/home/calendar/Day';
+import DayInfo from '@/components/home/calendar/DayInfo';
 import { database } from '@/db';
 import { AttendanceRecord } from '@/db/models/AttendanceRecord';
 import BottomSheet, {
@@ -10,8 +12,6 @@ import { StyleSheet, useWindowDimensions } from 'react-native';
 import { Calendar, DateData } from 'react-native-calendars';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Icon, Portal, useTheme } from 'react-native-paper';
-import DayComponent from './components/Day';
-import DayInfo from './components/DayInfo';
 
 const CalendarPage = ({
   records

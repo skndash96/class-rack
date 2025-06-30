@@ -1,6 +1,6 @@
+import { handleAddSubject } from '@/services/subjects'
 import React, { useState } from 'react'
 import { FAB } from 'react-native-paper'
-import { handleAddSubject } from '../services/subject'
 import SubjectModal from './SubjectModal'
 
 export default function AddSubject() {

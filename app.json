@@ -14,7 +14,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#1e1b1e"
       },
       "edgeToEdgeEnabled": true,
       "package": "com.skndash96.classrackfrontend"
@@ -31,8 +31,8 @@
         {
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "resizeMode": "cover",
+          "backgroundColor": "#1e1b1e"
         }
       ],
       "expo-web-browser"

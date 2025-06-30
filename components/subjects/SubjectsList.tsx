@@ -1,3 +1,4 @@
+import AddSubject from '@/components/subjects/edit/AddSubjectButton'
 import { database } from '@/db'
 import { Subject } from '@/db/models/Subject'
 import { Q } from '@nozbe/watermelondb'
@@ -5,7 +6,6 @@ import { withObservables } from '@nozbe/watermelondb/react'
 import React from 'react'
 import { FlatList } from 'react-native'
 import { Text } from 'react-native-paper'
-import AddSubject from './AddSubjectButton'
 import SubjectItem from './SubjectItem'
 
 const enhanceSubjectsList = withObservables([], () => ({
