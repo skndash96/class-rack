@@ -1,24 +1,17 @@
+import SubjectsList from "@/components/subjects/SubjectsList";
 import TableView from "@/components/timetable/TableView";
 import { useTopbar } from "@/contexts/Topbar";
-import { Href, useFocusEffect, useRouter } from "expo-router";
+import { useFocusEffect } from "expo-router";
 import { useCallback } from "react";
 import { ScrollView } from "react-native";
-import { IconButton } from "react-native-paper";
 
-export default function Timetable() {
-  const router = useRouter();
+export default function AttendanceTracker() {
   const { setTopBarOptions } = useTopbar();
 
   useFocusEffect(useCallback(() => {
     setTopBarOptions({
-      title: "Timetable",
-      isBackButtonVisible: false,
-      rightActions: [
-        <IconButton
-          icon="pencil"
-          onPress={() => router.push("/timetable/edit" as Href)}
-        />
-      ]
+      title: "Attendance Tracker",
+      isBackButtonVisible: false
     })
   }, []))
 
@@ -27,6 +20,7 @@ export default function Timetable() {
       flex: 1
     }}>
       <TableView />
+      <SubjectsList />
     </ScrollView>
   );
 }

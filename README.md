@@ -1,5 +1,5 @@
 # class rack
-let's solve a problem
+Solving an IRL problem
 
 ## pain points:
 - only few in a class take good notes during a lecture
