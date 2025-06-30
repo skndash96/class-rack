@@ -1,3 +1,4 @@
+import { usePreferences } from '@/contexts/Preferences'
 import { AttendanceRecord } from '@/db/models/AttendanceRecord'
 import { getAttendancePercentage } from '@/utils/getAttendancePercentage'
 import React, { useMemo } from 'react'
@@ -18,9 +19,10 @@ export default function DayComponent({
   onPress: (date: DateData) => void
 }) {
   const theme = useTheme()
+  const { attendanceThresholdPercentage } = usePreferences()
 
   const type = useMemo(() => {
-    return getAttendancePercentage(records).markingColor
+    return getAttendancePercentage(records, attendanceThresholdPercentage).markingColor
   }, [records])
 
   return (

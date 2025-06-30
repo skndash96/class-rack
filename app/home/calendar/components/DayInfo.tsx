@@ -1,3 +1,4 @@
+import { usePreferences } from '@/contexts/Preferences'
 import { AttendanceRecord } from '@/db/models/AttendanceRecord'
 import { getAttendancePercentage } from '@/utils/getAttendancePercentage'
 import { useRouter } from 'expo-router'
@@ -14,8 +15,10 @@ export default function DayInfo({
 }) {
   const router = useRouter()
   const theme = useTheme()
+  const { attendanceThresholdPercentage } = usePreferences()
+
   const attendanceInfo = useMemo(() => {
-    return getAttendancePercentage(records)
+    return getAttendancePercentage(records, attendanceThresholdPercentage)
   }, [records])
 
   return (
@@ -27,7 +30,7 @@ export default function DayInfo({
       <Button
         onPress={() => {
           const today = new Date().setHours(0, 0, 0, 0)
-          if (new Date(dateString).setHours(0,0,0,0) !== today) {
+          if (new Date(dateString).setHours(0, 0, 0, 0) !== today) {
             router.replace(`/home/${dateString}` as any)
           } else {
             router.back()

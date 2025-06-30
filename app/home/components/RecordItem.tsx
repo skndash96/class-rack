@@ -1,3 +1,4 @@
+import { usePreferences } from '@/contexts/Preferences'
 import { database } from '@/db'
 import { AttendanceRecord } from '@/db/models/AttendanceRecord'
 import { Subject } from '@/db/models/Subject'
@@ -22,8 +23,10 @@ const RecordItem = ({
   const router = useRouter()
   const theme = useTheme()
   const [loading, setLoading] = React.useState(false)
+  const { attendanceThresholdPercentage } = usePreferences()
+
   const attendanceInfo = React.useMemo(() => {
-    return getAttendancePercentage(attendanceRecords)
+    return getAttendancePercentage(attendanceRecords, attendanceThresholdPercentage, subject)
   }, [attendanceRecords])
 
   const handleUpdateStatus = async (status: number) => {
@@ -75,7 +78,7 @@ const RecordItem = ({
     >
       <Card>
         <TouchableOpacity
-          onPress={() => router.push('/subjects/'+subject.id as any)}
+          onPress={() => router.push('/subjects/' + subject.id as any)}
           activeOpacity={0.5}
         >
           <Card.Title

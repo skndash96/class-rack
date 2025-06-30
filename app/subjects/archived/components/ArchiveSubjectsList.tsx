@@ -6,8 +6,8 @@ import { Q } from '@nozbe/watermelondb'
 import { withObservables } from '@nozbe/watermelondb/react'
 import { useFocusEffect, useRouter } from 'expo-router'
 import React, { useCallback, useEffect, useMemo } from 'react'
-import { Alert, BackHandler, FlatList, View } from 'react-native'
-import { Button, Card, IconButton, Text, useTheme } from 'react-native-paper'
+import { Alert, BackHandler, FlatList, TouchableOpacity, View } from 'react-native'
+import { Button, Card, Icon, IconButton, Text, useTheme } from 'react-native-paper'
 import Animated, { LinearTransition, SlideInUp } from 'react-native-reanimated'
 import Toast from 'react-native-simple-toast'
 
@@ -25,13 +25,13 @@ const ArchiveSubjectsList = ({
     return subjects.some((subject) => subject.isArchived !== subjectsArchivedMap[subject.id])
   }, [subjects, subjectsArchivedMap])
 
-  const resetSubjectsArchivedMap = useCallback(() => {
+  const resetSubjectsArchivedMap = () => {
     const map: Record<string, boolean> = {}
     subjects.forEach((subject) => {
       map[subject.id] = subject.isArchived
     })
     setSubjectsArchivedMap(map)
-  }, [subjects])
+  }
 
   const handleToggleArchive = (subject: Subject) => {
     setSubjectsArchivedMap((prev) => ({
@@ -102,7 +102,7 @@ const ArchiveSubjectsList = ({
 
     setTopBarOptions({
       title: "Subjects Archive",
-      isBackButtonVisible: isEditing,
+      isBackButtonVisible: true,
       rightActions: isEditing ? [
         <Button
           onPress={handleSave}
@@ -140,27 +140,29 @@ const ArchiveSubjectsList = ({
             // exiting={FadeOutUp}
             layout={LinearTransition}
           >
-            <Card style={{
-              backgroundColor: !subjectsArchivedMap[subject.id] || subjectsArchivedMap[subject.id] === subject.isArchived ? theme.colors.elevation.level2 : theme.colors.primaryContainer,
-            }}>
-              <Card.Title
-                title={subject.name + (subject.isArchived ? ' (Archived)' : '')}
-                titleStyle={{
-                  fontSize: 18
-                }}
-                subtitle={`${subject.code} (${subject.credits} credits)`}
-                left={() => (
-                  <IconButton
-                    disabled={loading}
-                    icon={subjectsArchivedMap[subject.id] ? 'check-circle' : 'circle'}
-                    iconColor={subjectsArchivedMap[subject.id] ? theme.colors.primary : theme.colors.onSurfaceVariant}
-                    onPress={() => handleToggleArchive(subject)}
-                  />
-                )}
-              />
-            </Card>
+            <TouchableOpacity disabled={loading} activeOpacity={0.7} onPress={() => handleToggleArchive(subject)}>
+              <Card style={{
+                backgroundColor: !subjectsArchivedMap[subject.id] || subjectsArchivedMap[subject.id] === subject.isArchived ? theme.colors.elevation.level2 : theme.colors.primaryContainer,
+              }}>
+                <Card.Title
+                  title={subject.name + (subject.isArchived ? ' (Archived)' : '')}
+                  titleStyle={{
+                    fontSize: 18
+                  }}
+                  subtitle={`${subject.code} (${subject.credits} credits)`}
+                  left={() => (
+                    <Icon
+                      size={24}
+                      source={subjectsArchivedMap[subject.id] ? 'check-circle' : 'circle'}
+                      color={subjectsArchivedMap[subject.id] ? theme.colors.primary : theme.colors.onSurfaceVariant}
+                    />
+                  )}
+                />
+              </Card>
+            </TouchableOpacity>
           </Animated.View>
-        )}
+        )
+        }
         contentContainerStyle={{
           padding: 16,
           display: 'flex',
@@ -174,7 +176,7 @@ const ArchiveSubjectsList = ({
           }}>No archived subjects found</Text>
         )}
       />
-    </View>
+    </View >
   )
 }
 

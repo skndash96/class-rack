@@ -1,10 +1,10 @@
-import { DEFAULT_ATTENDANCE_THRESHOLD_PERCENTAGE } from "@/constants/defaultPreferences";
 import { AttendanceRecord } from "@/db/models/AttendanceRecord";
+import { Subject } from "@/db/models/Subject";
 
-export function getAttendancePercentage(attendanceRecords: AttendanceRecord[], thresholdPercentage: number = DEFAULT_ATTENDANCE_THRESHOLD_PERCENTAGE) {
+export function getAttendancePercentage(attendanceRecords: AttendanceRecord[], thresholdPercentage: number, subject?: Subject) {
   const req = thresholdPercentage/100
 
-  let totalPresent = 0, totalClasses = 0, totalCancelled = 0, totalUnmarked = 0
+  let totalPresent = subject?.initialPresent || 0, totalClasses = subject?.initialTotalClasses || 0, totalCancelled = 0, totalUnmarked = 0
 
   attendanceRecords.forEach(record => {
     if (record.status === 1) {

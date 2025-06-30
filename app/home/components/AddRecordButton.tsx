@@ -49,8 +49,9 @@ export default function AddRecordButton({
       <Portal>
         <FAB
           icon="plus"
-          label='Add Record'
-          style={{ position: 'absolute', bottom: 108, right: 16 }}
+          label='Add Class'
+          style={{ position: 'absolute', bottom: 108, right: 16 }} // bottom from layout so include the bottom bar height
+          mode="flat"
           onPress={() => setVisible(true)}
         />
       </Portal>

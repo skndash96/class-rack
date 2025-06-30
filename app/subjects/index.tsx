@@ -28,7 +28,10 @@ export default function Subjects() {
             onPress={() => setMoreMenuVisible(!moreMenuVisible)}
             size={24}
           />}>
-          <Menu.Item onPress={() => router.push("/subjects/archived")} title="Archived" />
+          <Menu.Item onPress={() => {
+            setMoreMenuVisible(false)
+            router.push("/subjects/archived")
+          }} title="Archived" />
         </Menu>
       ]
     })

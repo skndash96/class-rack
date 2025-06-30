@@ -22,6 +22,16 @@ export const subjectsTable = tableSchema({
       type: "boolean"
     },
     {
+      name: "initial_present",
+      type: "number",
+      isOptional: true,
+    },
+    {
+      name: "initial_total_classes",
+      type: "number",
+      isOptional: true,
+    },
+    {
       name: 'created_at',
       type: 'number'
     },
@@ -42,6 +52,8 @@ export class Subject extends Model {
   @field("code") code!: string;
   @field("credits") credits!: number;
   @field("is_archived") isArchived!: boolean;
+  @field("initial_present") initialPresent!: number;
+  @field("initial_total_classes") initialTotalClasses!: number;
   @readonly @date("created_at") createdAt!: Date;
 
   // TODO: make this a lazy query

@@ -1,3 +1,4 @@
+import { usePreferences } from '@/contexts/Preferences'
 import { useTopbar } from '@/contexts/Topbar'
 import { database } from '@/db'
 import { AttendanceRecord } from '@/db/models/AttendanceRecord'
@@ -7,7 +8,9 @@ import { withObservables } from '@nozbe/watermelondb/react'
 import { useFocusEffect } from 'expo-router'
 import React, { useCallback, useMemo } from 'react'
 import { SectionList, View } from 'react-native'
-import { Card, Icon, Text, useTheme } from 'react-native-paper'
+import { Card, Icon, IconButton, Menu, Text, useTheme } from 'react-native-paper'
+import SubjectModal from '../../components/SubjectModal'
+import { handleDeleteSubject, handleEditSubject } from '../../services/subject'
 import SubjectPageRecordItem from './SubjectPageRecordItem'
 
 const SubjectPage = ({
@@ -19,6 +22,9 @@ const SubjectPage = ({
 }) => {
   const theme = useTheme()
   const { setTopBarOptions } = useTopbar()
+  const [moreMenuVisible, setMoreMenuVisible] = React.useState(false)
+  const [editSubjectModalVisible, setEditSubjectModalVisible] = React.useState(false)
+  const { attendanceThresholdPercentage } = usePreferences()
 
   const attendanceRecordsGrouped = useMemo(() => {
     const grouped: { [key: string]: AttendanceRecord[] } = {}
@@ -41,21 +47,51 @@ const SubjectPage = ({
   }, [attendanceRecords])
 
   const attendanceInfo = useMemo(() => {
-    return getAttendancePercentage(attendanceRecords)
+    return getAttendancePercentage(attendanceRecords, attendanceThresholdPercentage, subject)
   }, [attendanceRecords])
 
   useFocusEffect(useCallback(() => {
     setTopBarOptions({
       title: `${subject.name}`,
-      rightActions: undefined,
       isBackButtonVisible: true,
+      rightActions: [
+        <Menu
+          visible={moreMenuVisible}
+          onDismiss={() => setMoreMenuVisible(false)}
+          anchorPosition='bottom'
+          anchor={<IconButton
+            icon="dots-vertical"
+            onPress={() => setMoreMenuVisible(!moreMenuVisible)}
+            size={24}
+          />}>
+          <Menu.Item onPress={() => {
+            setMoreMenuVisible(false)
+            setEditSubjectModalVisible(true)
+          }} title="Edit" />
+          <Menu.Item onPress={() => {
+            setMoreMenuVisible(false)
+            handleDeleteSubject(subject)
+          }} title="Delete" />
+        </Menu>
+      ],
     })
-  }, []))
+  }, [moreMenuVisible]))
 
   return (
     <View style={{
       padding: 16
     }}>
+      {editSubjectModalVisible && (
+        <SubjectModal
+          title="Edit Subject"
+          initialSubject={subject}
+          onClose={() => setEditSubjectModalVisible(false)}
+          onSubmit={async (params) => {
+            await handleEditSubject(params, subject)
+            setEditSubjectModalVisible(false)
+          }}
+        />
+      )}
       <Card>
         <Card.Title
           title={subject.name}
@@ -180,6 +216,23 @@ const SubjectPage = ({
           <Text style={{ textAlign: 'center', marginTop: 20 }}>No attendance records found.</Text>
         )}
       />
+
+      {subject.initialTotalClasses > 0 && (
+        <Card style={{ marginVertical: 20, padding: 12 }}>
+          <View style={{ flexDirection: 'row', marginBottom: 6 }}>
+            <Text variant="bodyMedium">Initial Total Classes:</Text>
+            <Text variant="bodyMedium" style={{ marginLeft: 16, fontWeight: 'bold' }}>
+              {subject.initialTotalClasses}
+            </Text>
+          </View>
+          <View style={{ flexDirection: 'row', marginBottom: 6 }}>
+            <Text variant="bodyMedium">Initial Total Present:</Text>
+            <Text variant="bodyMedium" style={{ marginLeft: 16, fontWeight: 'bold' }}>
+              {subject.initialPresent}
+            </Text>
+          </View>
+        </Card>
+      )}
     </View>
   )
 }

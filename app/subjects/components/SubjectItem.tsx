@@ -1,13 +1,14 @@
-import { database } from '@/db'
+import { usePreferences } from '@/contexts/Preferences'
 import { AttendanceRecord } from '@/db/models/AttendanceRecord'
 import { Subject } from '@/db/models/Subject'
 import { getAttendancePercentage } from '@/utils/getAttendancePercentage'
 import { withObservables } from '@nozbe/watermelondb/react'
 import { useRouter } from 'expo-router'
 import React, { useMemo } from 'react'
-import { Alert, TouchableOpacity } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import { Card, IconButton, Text, useTheme } from 'react-native-paper'
 import Animated, { FadeInDown, LinearTransition } from 'react-native-reanimated'
+import { handleDeleteSubject, handleEditSubject } from '../services/subject'
 import SubjectModal from './SubjectModal'
 
 const SubjectItem = ({
@@ -22,46 +23,11 @@ const SubjectItem = ({
   const theme = useTheme()
   const router = useRouter()
   const [editModalVisible, setEditModalVisible] = React.useState(false)
+  const { attendanceThresholdPercentage } = usePreferences()
 
   const attendanceInfo = useMemo(() => {
-    return getAttendancePercentage(attendanceRecords)
+    return getAttendancePercentage(attendanceRecords, attendanceThresholdPercentage, subject)
   }, [attendanceRecords])
-
-  const handleEdit = async (updatedSubject: {
-    name: string,
-    code: string,
-    credits: number
-  }) => {
-    await database.write(async () => {
-      await subject.update((s) => {
-        s.name = updatedSubject.name
-        s.code = updatedSubject.code
-        s.credits = updatedSubject.credits
-      })
-    })
-
-    setEditModalVisible(false)
-  }
-
-  const handleDelete = async () => {
-    const confirmed = await new Promise<boolean>((resolve) => {
-      Alert.alert(
-        'Delete Subject',
-        'Are you sure you want to delete this subject?',
-        [
-          { text: 'Cancel', style: 'cancel', onPress: () => resolve(false) },
-          { text: 'Delete', style: 'destructive', onPress: () => resolve(true) }
-        ],
-        { cancelable: true }
-      )
-    })
-
-    if (!confirmed) return
-
-    await database.write(async () => {
-      await subject.markAsDeleted()
-    })
-  }
 
   return (
     <Animated.View
@@ -116,7 +82,10 @@ const SubjectItem = ({
                 initialSubject={subject}
                 title='Edit Subject'
                 onClose={() => setEditModalVisible(false)}
-                onSubmit={handleEdit}
+                onSubmit={async (params) => {
+                  await handleEditSubject(params, subject)
+                  setEditModalVisible(false)
+                }}
               />
             )}
 
@@ -127,7 +96,7 @@ const SubjectItem = ({
             />
             <IconButton
               icon="delete"
-              onPress={handleDelete}
+              onPress={() => handleDeleteSubject(subject)}
               size={24}
             />
           </Card.Actions>
