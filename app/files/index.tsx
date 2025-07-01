@@ -4,12 +4,12 @@ import { useCallback } from "react";
 import { View } from "react-native";
 import { Text } from "react-native-paper";
 
-export default function Tasks() {
+export default function Files() {
   const { setTopBarOptions } = useTopbar();
 
   useFocusEffect(useCallback(() => {
     setTopBarOptions({
-      title: "Tasks",
+      title: "Files",
       isBackButtonVisible: false,
       rightActions: []
     })
@@ -22,7 +22,7 @@ export default function Tasks() {
         padding: 20
       }}
     >
-      <Text>Tasks page</Text>
+      <Text>Files page</Text>
     </View>
   );
 }

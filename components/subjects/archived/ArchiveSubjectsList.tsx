@@ -129,19 +129,20 @@ const ArchiveSubjectsList = ({
     <View style={{
       flex: 1
     }}>
-      <Card mode="contained" style={{ margin: 16, backgroundColor: theme.colors.elevation.level0 }}>
-        <Card.Content style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 12 }}>
-          <IconButton icon="information" size={20} />
-          <Text style={{ flex: 1 }}>
-            Archived subjects are not shown in the main list. You can archive completed courses or ones you no longer need.
-          </Text>
-        </Card.Content>
-      </Card>
-
       <FlashList
-        data={subjects}
+        data={[{ id: "info "}].concat(subjects as (Subject | { id: string })[])}
         keyExtractor={(item) => item.id}
-        renderItem={({ item: subject }) => (
+        estimatedItemSize={100}
+        renderItem={({ item: subject }) => !(subject instanceof Subject) ? (
+          <Card mode="contained" style={{ marginVertical: 16, backgroundColor: theme.colors.elevation.level0 }}>
+            <Card.Content style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 12 }}>
+              <IconButton icon="information" size={20} />
+              <Text style={{ flex: 1 }}>
+                Archived subjects are not shown in the main list. You can archive completed courses or ones you no longer need.
+              </Text>
+            </Card.Content>
+          </Card>
+        ) : (
           <Animated.View
             entering={SlideInUp}
             layout={LinearTransition}
@@ -170,10 +171,9 @@ const ArchiveSubjectsList = ({
               </Card>
             </TouchableOpacity>
           </Animated.View>
-        )
-        }
+        )}
         contentContainerStyle={{
-          padding: 16,
+          paddingHorizontal: 16,
           paddingBottom: 96
         }}
         ListEmptyComponent={() => (

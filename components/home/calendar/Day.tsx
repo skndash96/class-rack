@@ -30,6 +30,7 @@ export default function DayComponent({
       aspectRatio: 1,
       borderRadius: 100,
       backgroundColor: marking?.selected ? theme.colors.primary : 'transparent',
+      position: 'relative',
     }} activeOpacity={0.7} onPress={() => onPress(date!)}>
       <Text style={{
         color: marking?.selected ? theme.colors.onPrimary : state === 'today' ? theme.colors.primary : state === 'disabled' ? theme.colors.onSurfaceDisabled : theme.colors.onSurface,
@@ -43,12 +44,13 @@ export default function DayComponent({
       </Text>
       
       <View style={{
-        width: 5,
+        position: 'absolute',
+        bottom: 2,
+        right: 2,
+        width: 8,
         aspectRatio: 1,
         borderRadius: 5,
-        marginHorizontal: 'auto',
         backgroundColor: type,
-        transform: [{ translateY: -4 }],
       }} />
     </TouchableOpacity>
   )

@@ -2,73 +2,83 @@ import SubjectsList from "@/components/subjects/SubjectsList";
 import TableView from "@/components/timetable/TableView";
 import { useTopbar } from "@/contexts/Topbar";
 import { useFocusEffect, useRouter } from "expo-router";
-import { useCallback } from "react";
-import { ScrollView } from "react-native";
-import { Card, IconButton } from "react-native-paper";
+import React, { useCallback } from "react";
+import { View } from "react-native";
+import { IconButton, Menu, SegmentedButtons } from "react-native-paper";
 
 export default function AttendanceTracker() {
   const { setTopBarOptions } = useTopbar();
   const router = useRouter();
+  const [tab, setTab] = React.useState<"timetable" | "subjects">("subjects");
+  const [moreMenuVisible, setMoreMenuVisible] = React.useState(false);
 
   useFocusEffect(useCallback(() => {
     setTopBarOptions({
-      title: "Attendance Tracker",
+      title: tab === "subjects" ? "Subjects" : "Timetable",
       isBackButtonVisible: false,
-      rightActions: []
+      rightActions: [
+        <IconButton
+          icon="pencil"
+          size={20}
+          onPress={() => {
+            if (tab === "subjects") {
+              router.push('/attendance/subjects/edit' as any);
+            } else {
+              router.push('/attendance/timetable/edit' as any);
+            }
+          }}
+        />,
+        tab === "subjects" && (
+          <Menu
+            visible={moreMenuVisible}
+            onDismiss={() => setMoreMenuVisible(false)}
+            anchorPosition='bottom'
+            anchor={<IconButton
+              icon="dots-vertical"
+              onPress={() => setMoreMenuVisible(!moreMenuVisible)}
+              size={24}
+            />}>
+
+            <Menu.Item onPress={() => {
+              setMoreMenuVisible(false)
+              router.push("/attendance/subjects/archived")
+            }} title="Archived" />
+          </Menu>
+        )
+      ]
     })
-  }, []))
+  }, [tab, moreMenuVisible]))
 
   return (
-    <ScrollView style={{
+    <View style={{
       flex: 1
     }}>
-      <Card mode="elevated" elevation={0}>
-        <Card.Title
-          title="Timetable"
-          titleStyle={{
-            fontSize: 18,
-          }}
-          style={{
-            minHeight: 0
-          }}
-          right={() => (
-            <IconButton
-              icon="pencil"
-              size={20}
-              onPress={() => {
-                router.push('/attendance/timetable/edit' as any)
-              }}
-            />
-          )}
-        />
-      </Card>
+      <SegmentedButtons
+        value={tab}
+        onValueChange={setTab}
+        style={{
+          marginHorizontal: 16,
+          marginBottom: 24
+        }}
+        buttons={[
+          {
+            icon: 'note-multiple',
+            value: 'subjects',
+            label: 'Subjects',
+          },
+          {
+            icon: 'clock-time-four',
+            value: 'timetable',
+            label: 'Timetable',
+          }
+        ]}
+      />
 
-      <TableView />
-
-      <Card mode="elevated" elevation={0} style={{
-        marginTop: 32,
-      }}>
-        <Card.Title
-          title="Subjects"
-          titleStyle={{
-            fontSize: 18
-          }}
-          style={{
-            minHeight: 0,
-          }}
-          right={() => (
-            <IconButton
-              icon="pencil"
-              size={20}
-              onPress={() => {
-                router.push('/attendance/subjects/edit' as any)
-              }}
-            />
-          )}
-        />
-      </Card>
-
-      <SubjectsList />
-    </ScrollView>
+      {tab === "timetable" ? (
+        <TableView />
+      ) : (tab === "subjects") ? (
+        <SubjectsList />
+      ) : null}
+    </View>
   );
 }

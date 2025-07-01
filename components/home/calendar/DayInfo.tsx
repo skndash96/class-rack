@@ -47,7 +47,7 @@ export default function DayInfo({
         }}
       >
         <Text variant='titleLarge' style={{
-          color: theme.colors.onSurfaceVariant
+          color: theme.colors.onSurface
         }}>
           {new Date(dateString).toLocaleDateString('en-US', {
             month: 'short',
@@ -85,7 +85,9 @@ export default function DayInfo({
           gap: 8
         }}>
           <Icon color="rgba(38,255,38,0.4)" source="check-circle" size={20} />
-          <Text>
+          <Text style={{
+            color: theme.colors.onSurfaceVariant
+          }}>
             Present
           </Text>
           <Text>
@@ -98,7 +100,9 @@ export default function DayInfo({
           gap: 8
         }}>
           <Icon color="rgba(255,38,38,0.5)" source="close-circle" size={20} />
-          <Text>
+          <Text style={{
+            color: theme.colors.onSurfaceVariant
+          }}>
             Absent
           </Text>
           <Text>
@@ -111,7 +115,9 @@ export default function DayInfo({
           gap: 8
         }}>
           <Icon color="rgba(255,156,38,0.5)" source="cancel" size={20} />
-          <Text>
+          <Text style={{
+            color: theme.colors.onSurfaceVariant
+          }}>
             Cancelled
           </Text>
           <Text>
@@ -124,7 +130,9 @@ export default function DayInfo({
           gap: 8
         }}>
           <Icon color="rgba(56, 223, 235, 0.5)" source="eye-off" size={20} />
-          <Text>
+          <Text style={{
+            color: theme.colors.onSurfaceVariant
+          }}>
             Unmarked
           </Text>
           <Text>

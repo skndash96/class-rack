@@ -47,7 +47,7 @@ const CalendarPage = ({
     <Portal>
       <GestureHandlerRootView style={styles.container}>
         <BottomSheet enablePanDownToClose onClose={router.back} backgroundStyle={{
-          backgroundColor: theme.colors.elevation.level5,
+          backgroundColor: theme.colors.elevation.level3,
         }} handleStyle={{
           backgroundColor: theme.colors.elevation.level5,
         }}>
@@ -55,6 +55,10 @@ const CalendarPage = ({
             paddingBottom: 60
           }]}>
             <Calendar
+              style={{
+                minWidth: '100%',
+                backgroundColor: theme.colors.elevation.level5
+              }}
               firstDay={1}
               markedDates={{
                 [selectedDate]: {
@@ -68,10 +72,6 @@ const CalendarPage = ({
                   size={24}
                 />
               )}
-              style={{
-                minWidth: '100%',
-                backgroundColor: theme.colors.elevation.level2
-              }}
               theme={{
                 backgroundColor: 'transparent',
                 calendarBackground: 'transparent',

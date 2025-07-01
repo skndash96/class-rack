@@ -14,13 +14,13 @@ export default function BottomBar() {
         { backgroundColor: theme.colors.surface, borderTopColor: theme.colors.outlineVariant },
       ]}
     >
-      {tabs.map(({ icon, path }) => {
+      {tabs.map(({ icon, path, iconSize }) => {
         const isActive = path === "/" ? pathname.startsWith("/home") || pathname === path : pathname.startsWith(path);
         return (
           <IconButton
             key={path}
             icon={icon}
-            size={28}
+            size={iconSize}
             mode={isActive ? 'contained-tonal' : undefined}
             onPress={() => router.replace(path as any)}
             iconColor={isActive ? theme.colors.onPrimaryContainer : theme.colors.onSurfaceVariant}
@@ -51,21 +51,31 @@ const tabs = [
   {
     title: 'Home',
     icon: 'home-outline',
-    path: "/"
+    path: "/",
+    iconSize: 28
   },
   {
     title: 'Timetable',
-    icon: 'clock-time-four-outline',
-    path: "/attendance"
+    icon: 'school-outline',
+    path: "/attendance",
+    iconSize: 28
   },
   {
     title: 'Tasks',
-    icon: 'note-multiple-outline',
-    path: "/tasks"
+    icon: 'calendar-check-outline',
+    path: "/tasks",
+    iconSize: 24
+  },
+  {
+    title: 'Files',
+    icon: 'folder-multiple-outline',
+    path: "/files",
+    iconSize: 24
   },
   {
     title: 'Account',
     icon: 'account-outline',
-    path: "/account"
+    path: "/account",
+    iconSize: 28
   }
 ]
