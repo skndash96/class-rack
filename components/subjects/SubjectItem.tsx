@@ -33,10 +33,13 @@ const SubjectItem = ({
     <Animated.View
       layout={LinearTransition}
       entering={FadeInDown}
+      style={{
+        marginBottom: 16,
+      }}
     // exiting={FadeOutUp}
     >
-      <Card mode="elevated" style={{}} elevation={2}>
-        <TouchableOpacity activeOpacity={editMode ? 1 : 0.6} onPress={() => !editMode && router.push("/subjects/" + subject.id as any)}>
+      <Card mode="elevated" elevation={2}>
+        <TouchableOpacity activeOpacity={editMode ? 1 : 0.6} onPress={() => !editMode && router.push("/attendance/subjects/" + subject.id as any)}>
           <Card.Title
             title={subject.name}
             subtitle={`${subject.code} (${subject.credits} credits)`}

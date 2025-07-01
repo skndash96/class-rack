@@ -2,7 +2,8 @@ import { database } from '@/db'
 import { AttendanceRecord } from '@/db/models/AttendanceRecord'
 import { Q } from '@nozbe/watermelondb'
 import { withObservables } from '@nozbe/watermelondb/react'
-import { FlatList, View } from 'react-native'
+import { FlashList } from '@shopify/flash-list'
+import { View } from 'react-native'
 import { Text } from 'react-native-paper'
 import AddRecordButton from './AddRecordButton'
 import EnhancedRecordItem from './RecordItem'
@@ -15,20 +16,20 @@ const RecordsList = ({
   records: AttendanceRecord[]
 }) => {  
   return (
-    <View>
-      <FlatList
+    <View style={{
+      flex: 1
+    }}>
+      <FlashList
         contentContainerStyle={{
           paddingHorizontal: 16,
-          paddingBottom: 100,
-          display: "flex",
-          flexDirection: "column",
-          gap: 16,
+          paddingBottom: 100
         }}
         data={records}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <EnhancedRecordItem record={item} />
         )}
+        estimatedItemSize={200}
         ListEmptyComponent={() => (
           <View style={{ padding: 20, alignItems: 'center' }}>
             <Text>No Classes Today 🎉</Text>

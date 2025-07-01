@@ -3,8 +3,9 @@ import { database } from '@/db'
 import { Subject } from '@/db/models/Subject'
 import { Q } from '@nozbe/watermelondb'
 import { withObservables } from '@nozbe/watermelondb/react'
+import { FlashList } from '@shopify/flash-list'
 import React from 'react'
-import { FlatList } from 'react-native'
+import { View } from 'react-native'
 import { Text } from 'react-native-paper'
 import SubjectItem from './SubjectItem'
 
@@ -19,12 +20,17 @@ function SubjectsList({ subjects, editMode = false }: {
   return (
     <>
       {editMode && (
-        <AddSubject />
+        <View style={{
+          marginBottom: 16
+        }}>
+          <AddSubject />
+        </View>
       )}
 
-      <FlatList
+      <FlashList
         data={subjects}
         keyExtractor={(item) => item.id}
+        estimatedItemSize={100}
         renderItem={({ item }) => (
           <SubjectItem
             subject={item}
@@ -32,10 +38,7 @@ function SubjectsList({ subjects, editMode = false }: {
           />
         )}
         contentContainerStyle={{
-          padding: 16,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 16,
+          paddingHorizontal: 16,
           paddingBottom: 96
         }}
         ListEmptyComponent={() => (

@@ -8,7 +8,7 @@ import { useRouter } from 'expo-router'
 import React from 'react'
 import { Alert, TouchableOpacity } from 'react-native'
 import { Card, Icon, IconButton, Text, useTheme } from 'react-native-paper'
-import Animated, { FadeInDown, FadeOutUp, LinearTransition } from 'react-native-reanimated'
+import Animated, { FadeInDown, LinearTransition } from 'react-native-reanimated'
 import Toast from 'react-native-simple-toast'
 
 const RecordItem = ({
@@ -74,11 +74,13 @@ const RecordItem = ({
     <Animated.View
       layout={LinearTransition}
       entering={FadeInDown}
-      exiting={FadeOutUp}
+      style={{
+        marginBottom: 16,
+      }}
     >
       <Card>
         <TouchableOpacity
-          onPress={() => router.push('/subjects/' + subject.id as any)}
+          onPress={() => router.push('/attendance/subjects/' + subject.id as any)}
           activeOpacity={0.5}
         >
           <Card.Title

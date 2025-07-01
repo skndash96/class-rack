@@ -56,12 +56,12 @@ const tabs = [
   {
     title: 'Timetable',
     icon: 'clock-time-four-outline',
-    path: "/timetable"
+    path: "/attendance"
   },
   {
-    title: 'Subjects',
+    title: 'Tasks',
     icon: 'note-multiple-outline',
-    path: "/subjects"
+    path: "/tasks"
   },
   {
     title: 'Account',

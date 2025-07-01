@@ -4,9 +4,10 @@ import { Subject } from '@/db/models/Subject'
 import { Timetable } from '@/db/models/Timetable'
 import { Q } from '@nozbe/watermelondb'
 import { withObservables } from '@nozbe/watermelondb/react'
+import { FlashList } from '@shopify/flash-list'
 import { useFocusEffect, useRouter } from 'expo-router'
 import React, { useCallback, useEffect, useMemo } from 'react'
-import { Alert, BackHandler, FlatList, TouchableOpacity, View } from 'react-native'
+import { Alert, BackHandler, TouchableOpacity, View } from 'react-native'
 import { Button, Card, Icon, IconButton, Text, useTheme } from 'react-native-paper'
 import Animated, { LinearTransition, SlideInUp } from 'react-native-reanimated'
 import Toast from 'react-native-simple-toast'
@@ -125,7 +126,9 @@ const ArchiveSubjectsList = ({
   }, [subjects])
 
   return (
-    <View>
+    <View style={{
+      flex: 1
+    }}>
       <Card mode="contained" style={{ margin: 16, backgroundColor: theme.colors.elevation.level0 }}>
         <Card.Content style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 12 }}>
           <IconButton icon="information" size={20} />
@@ -135,14 +138,16 @@ const ArchiveSubjectsList = ({
         </Card.Content>
       </Card>
 
-      <FlatList
+      <FlashList
         data={subjects}
         keyExtractor={(item) => item.id}
         renderItem={({ item: subject }) => (
           <Animated.View
             entering={SlideInUp}
-            // exiting={FadeOutUp}
             layout={LinearTransition}
+            style={{
+              marginBottom: 16
+            }}
           >
             <TouchableOpacity disabled={loading} activeOpacity={0.7} onPress={() => handleToggleArchive(subject)}>
               <Card style={{
@@ -169,9 +174,6 @@ const ArchiveSubjectsList = ({
         }
         contentContainerStyle={{
           padding: 16,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 16,
           paddingBottom: 96
         }}
         ListEmptyComponent={() => (

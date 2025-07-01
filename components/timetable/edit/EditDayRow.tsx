@@ -19,9 +19,11 @@ const EditDayRow = ({ entry, subject, loading, totalEntries, onDelete, onMoveUp,
     <Animated.View
       layout={LinearTransition}
       entering={FadeInDown}
-      // exiting={FadeOutUp}
+      style={{
+        marginBottom: 16,
+      }}
     >
-      <Card style={{ marginVertical: 8 }}>
+      <Card>
         <Card.Title
           right={() => <Text style={{ marginRight: 12 }}>Slot {entry.slotNumber}</Text>}
           titleVariant="titleLarge"

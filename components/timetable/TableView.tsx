@@ -4,9 +4,9 @@ import { Timetable } from '@/db/models/Timetable';
 import { Q } from '@nozbe/watermelondb';
 import { withObservables } from '@nozbe/watermelondb/react';
 import React, { useMemo } from 'react';
-import { ScrollView, useWindowDimensions, View } from 'react-native';
+import { useWindowDimensions, View } from 'react-native';
 import { Surface, Text, useTheme } from 'react-native-paper';
-import Animated, { FadeInDown, FadeOutUp, LinearTransition } from 'react-native-reanimated';
+import Animated, { FadeIn } from 'react-native-reanimated';
 import EnhancedCell from './TableCell';
 
 const TableView = ({
@@ -18,6 +18,7 @@ const TableView = ({
   const window = useWindowDimensions()
   const padding = 16
   const gap = 4
+  const DAY_OFFSET = 1
   const cellStyle = {
     width: Math.max(40, (window.width - padding * 2 - gap * 6) / 7),
     height: 48,
@@ -28,13 +29,13 @@ const TableView = ({
   }
 
   const mappedEntries = useMemo(() => {
-    const maxSlots = Math.max(0, ...entries.map(entry => entry.slotNumber))
+    const maxSlots = Math.max(2, ...entries.map(entry => entry.slotNumber))
 
     const out = new Array(maxSlots).fill(null).map(() => new Array(7).fill(null)) as (Timetable | null)[][];
 
     entries.forEach(entry => {
-      if (out[entry.slotNumber - 1][entry.dayOfWeek] === null) {
-        out[entry.slotNumber - 1][entry.dayOfWeek] = entry;
+      if (out[entry.slotNumber - 1][(entry.dayOfWeek + 7 - DAY_OFFSET) % 7] === null) {
+        out[entry.slotNumber - 1][(entry.dayOfWeek + 7 - DAY_OFFSET) % 7] = entry;
       } else {
         console.warn(`Duplicate entry found for slot ${entry.slotNumber} on day ${entry.dayOfWeek}`);
       }
@@ -44,44 +45,48 @@ const TableView = ({
   }, [entries]);
 
   return (
-    <Animated.View
-      layout={LinearTransition}
-      entering={FadeInDown}
-      exiting={FadeOutUp}
+    <View
       style={{
-        padding
+        paddingHorizontal: padding
       }}
     >
-      <ScrollView style={{
-        marginBottom: 12
-      }} horizontal>
-        <View style={{
-          display: 'flex',
-          flexDirection: 'row',
-          gap
-        }}>
-          {numDayMap.map(day => (
-            <Text key={day} style={[
+      <View style={{
+        display: 'flex',
+        flexDirection: 'row',
+        gap,
+        marginBottom: gap,
+      }}>
+        {new Array(7).fill(null).map((_, i) => numDayMap[(i+DAY_OFFSET)%7]).map(day => (
+          <Animated.Text
+            entering={FadeIn}
+            key={day}
+            style={[
               cellStyle,
               {
-                backgroundColor: "transparent",
+                color: theme.colors.onSecondaryContainer,
+                backgroundColor: theme.colors.elevation.level5,
                 height: undefined,
+                paddingVertical: 8,
                 textAlign: 'center',
               }
-            ]}>
-              {day.substring(0, 3)}
-            </Text>
-          ))}
-        </View>
-      </ScrollView>
+            ]}
+          >
+            {day.substring(0, 3)}
+          </Animated.Text>
+        ))}
+      </View>
 
       {mappedEntries.map((dayEntries, dayIdx) => (
-        <View key={dayIdx} style={{
-          display: 'flex',
-          flexDirection: 'row',
-          gap,
-          marginBottom: gap
-        }}>
+        <Animated.View
+          entering={FadeIn}
+          key={dayIdx}
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            gap,
+            marginBottom: gap
+          }}
+        >
           {dayEntries.map((entry, entryIdx) => (
             entry ? (
               <EnhancedCell
@@ -96,9 +101,9 @@ const TableView = ({
               </Surface>
             )
           ))}
-        </View>
+        </Animated.View>
       ))}
-    </Animated.View>
+    </View>
   )
 }
 

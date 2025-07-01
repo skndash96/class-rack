@@ -3,8 +3,9 @@ import { Subject } from '@/db/models/Subject'
 import { Timetable } from '@/db/models/Timetable'
 import { Q } from '@nozbe/watermelondb'
 import { withObservables } from '@nozbe/watermelondb/react'
+import { FlashList } from '@shopify/flash-list'
 import React from 'react'
-import { Alert, FlatList, View } from 'react-native'
+import { Alert, View } from 'react-native'
 import { FAB, Text } from 'react-native-paper'
 import Toast from 'react-native-simple-toast'
 import AddEntryModal from './AddEntryModal'
@@ -127,14 +128,12 @@ const EditDay = ({
 
   return (
     <>
-      <FlatList
-        style={{
-          flexGrow: 1
-        }}
+      <FlashList
         contentContainerStyle={{
           paddingHorizontal: 16,
           paddingBottom: 40
         }}
+        estimatedItemSize={100}
         data={entries}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
