@@ -21,27 +21,29 @@ export function getAttendancePercentage(attendanceRecords: AttendanceRecord[], t
 
   const percent = totalClasses === 0 ? 100 : (totalPresent / totalClasses) * 100
 
-  let comment = "Can NOT miss next class", commentColor = "WARN" as "GOOD" | "WARN" | "BAD"
+  let comment = "Can NOT miss next class", percentColor  = "BAD" as "GOOD" | "BAD", commentColor = "BAD" as "GOOD" | "BAD"
 
   if (percent >= thresholdPercentage) {
     const x = Math.floor(totalPresent/req - totalClasses) 
 
+    percentColor = "GOOD"
+
     if (x > 0) {
-      comment = `Can MISS ${x} more classes`
       commentColor = "GOOD"
+      comment = `Can MISS ${x} more classes`
     }
   } else {
     const x = Math.ceil((totalClasses * req - totalPresent) / (1 - req))
 
     if (x > 0) {
       comment = `Can NOT miss next ${x} classes`
-      commentColor = "BAD"
     }
   }
 
   return {
     percentage: percent.toFixed(2),
     comment,
+    percentColor,
     commentColor,
     totalClasses,
     totalPresent,

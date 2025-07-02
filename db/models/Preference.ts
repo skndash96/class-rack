@@ -1,7 +1,7 @@
 import { Model, tableSchema } from "@nozbe/watermelondb";
 import { field } from "@nozbe/watermelondb/decorators";
 
-export const preferenceTable = tableSchema({
+export const preferencesTable = tableSchema({
   name: "preferences",
   columns: [
     {

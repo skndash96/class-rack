@@ -1,4 +1,5 @@
-import RecordsList from "@/components/home/RecordsList";
+import FABComponent from "@/components/FAB";
+import RecordsList from "@/components/attendance/RecordsList";
 import { useTopbar } from "@/contexts/Topbar";
 import { database } from "@/db";
 import { AttendanceRecord } from "@/db/models/AttendanceRecord";
@@ -37,7 +38,7 @@ export default function Index() {
             fontSize: 20
           }}
           onPress={() => {
-            router.push('/home/calendar');
+            router.push('/calendar');
           }}
         >
           {today.toLocaleDateString("en-US", {
@@ -132,6 +133,8 @@ export default function Index() {
       </Text>
 
       <RecordsList dateString={startOfDay} />
+
+      <FABComponent />
     </View>
   );
 }
