@@ -56,26 +56,20 @@ const tabs = [
   },
   {
     title: 'Timetable',
-    icon: 'school-outline',
-    path: "/attendance",
-    iconSize: 28
+    icon: 'clock-outline',
+    path: "/attendance/timetable",
+    iconSize: 24
   },
   {
-    title: 'Tasks',
+    title: 'Subjects',
     icon: 'calendar-check-outline',
-    path: "/tasks",
+    path: "/attendance/subjects",
     iconSize: 24
   },
   {
-    title: 'Files',
-    icon: 'folder-multiple-outline',
-    path: "/files",
+    title: 'Settings',
+    icon: 'cog-outline',
+    path: "/settings",
     iconSize: 24
-  },
-  {
-    title: 'Account',
-    icon: 'account-outline',
-    path: "/account",
-    iconSize: 28
   }
 ]

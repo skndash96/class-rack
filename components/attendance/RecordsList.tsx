@@ -5,6 +5,7 @@ import { withObservables } from '@nozbe/watermelondb/react'
 import { FlashList } from '@shopify/flash-list'
 import { View } from 'react-native'
 import { Text } from 'react-native-paper'
+import AddRecordButton from './AddRecordButton'
 import EnhancedRecordItem from './RecordItem'
 
 const RecordsList = ({
@@ -13,7 +14,7 @@ const RecordsList = ({
 }: {
   dateString: string | number, // YYYY-MM-DD or timestamp
   records: AttendanceRecord[]
-}) => {  
+}) => {
   return (
     <View style={{
       flex: 1
@@ -35,6 +36,8 @@ const RecordsList = ({
           </View>
         )}
       />
+
+      <AddRecordButton initialDate={new Date(dateString)} />
     </View>
   )
 }

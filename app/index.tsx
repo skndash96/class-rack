@@ -1,4 +1,3 @@
-import FABComponent from "@/components/FAB";
 import RecordsList from "@/components/attendance/RecordsList";
 import { useTopbar } from "@/contexts/Topbar";
 import { database } from "@/db";
@@ -133,8 +132,6 @@ export default function Index() {
       </Text>
 
       <RecordsList dateString={startOfDay} />
-
-      <FABComponent />
     </View>
   );
 }
