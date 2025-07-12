@@ -1,30 +1,22 @@
-# class rack
-Solving an IRL problem
+# Class Tracker
 
-## pain points:
-- only few in a class take good notes during a lecture
-- various lecturers send various ppts
-- the ppts and notes (pic & pdf) are scattered around in whatsapp (even in drive) and not so organised
-- many students dont track their attendance and % may fall below 75
-- many students dont know if their marks (of a particular exam) is of average, above or below average
-- many students tend to forget due dates or procrastinate to the end
+![home tab](https://github.com/skndash96/class-rack/blob/main/assets/images/readme-1.jpg?raw=true "Calendar Screen")
+![subjects tab](https://github.com/skndash96/class-rack/blob/main/assets/images/readme-2.jpg?raw=true "Subjects Screen")
+![timetable tab](https://github.com/skndash96/class-rack/blob/main/assets/images/readme-3.jpg?raw=true "Timetable Screen")
+![subject screen](https://github.com/skndash96/class-rack/blob/main/assets/images/readme-4.jpg?raw=true "Subject Screen")
+![settings tab](https://github.com/skndash96/class-rack/blob/main/assets/images/readme-5.jpg?raw=true "Settings Screen")
 
-## monetization:
-- 1mo free trial. then on, 10/- per mo
+Pain Points:
+- There's no official portal to check attendance of the students
+- Many students do not know about how many classes they can skip
+- Students need a good method to self track their attendance
 
-## features:
-- dauth login: obtain class circle from roll number
-- self: attendance tracking
-- self: to-do list with reminders
-- shared: file storage and easy accessibility of PDFs/ppts/notes as images
-- shared: exam mark average, median calculator (anonymity of users)
+Solution:
+- An app where users can create subjects, set timetable and get notified everyday to mark attendance
+- An app that tells you how many classes u can miss
 
-## please note:
-- the app doesn't try to move students from whatsapp group
-
-## bad:
-- gdrive fixes file sharing
-- gform fixes marks
-- gsheets fixes attendance
-- greminders fixes reminders
-but everything at one place, clean ui, mobile friendly is what i need
+Tech Stack:
+- React Native Expo (Typescript)
+- Watermelon DB (SQLite with observables)
+- React Native Paper
+- [more](https://github.com/skndash96/class-rack/tree/main/package.json)
