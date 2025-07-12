@@ -17,15 +17,10 @@ export const PreferencesProvider = ({
   const [attendanceThresholdPercentage, setAttendanceThresholdPercentage] = useState(DEFAULT_ATTENDANCE_THRESHOLD_PERCENTAGE);
 
   useEffect(() => {
-    const subscription = database.get<Preference>('preferences').query().observe().subscribe(async prefs => {
-      const preferences = new Map<string, Preference>();
-      
-      prefs.forEach(pref => {
-        preferences.set(pref.name, pref);
-      });
-      
+    const subscription = database.get<Preference>('preferences').query().observeWithColumns(["value"]).subscribe(async prefs => {
       const getValueOrCreateDefault = async (name: string, defaultValue: string) => {
-        const pref = preferences.get(name);
+        const pref = prefs.find(p => p.name === name)
+
         if (pref === undefined) {
           await database.write(async () => {
             await database.get<Preference>('preferences').create((p) => {
